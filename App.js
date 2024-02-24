@@ -1,35 +1,93 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { HomeScreen } from './screens';
-import React, { useState, useEffect } from 'react';
-import { firebase } from './config';
-
-import LoginScreen from './screens';
-import SignUpScreen from './screens';
-import HomeScreen from './screens';
-import Header from './components/Header';
+import { HomeScreen } from "./screens/HomeScreen";
+import React, { useState, useEffect, Suspense } from "react";
+import { firebase } from "./config";
+import LoginScreen from "./screens/LoginScreen";
+import SignUpScreen from "./screens/SignUpScreen";
+import Header from "./components/Header";
+import { NavigationContainer } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+function App() {
   const [initializing, setInitializing] = useState(true);
-  return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChange(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChange);
+    return subscriber;
+  }, []);
+
+  if (initializing) return null;
+
+  if (!user) {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{
+            headerTitle: () => <Header name="Drive-AAC" />,
+            headerStyle: {
+              height: 150,
+              borderBottomLeftRadius: 50,
+              borderBottomRightRadius: 50,
+              backgroundColor: "#00e4d0",
+              shadowColor: "#000",
+              elevation: 25,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="SignUpScreen"
+          component={SignUpScreen}
+          options={{
+            headerTitle: () => <Header name="Drive-AAC" />,
+            headerStyle: {
+              height: 150,
+              borderBottomLeftRadius: 50,
+              borderBottomRightRadius: 50,
+              backgroundColor: "#00e4d0",
+              shadowColor: "#000",
+              elevation: 25,
+            },
+          }}
+        />
       </Stack.Navigator>
-    </NavigationContainer>
-    
+    );
+  }
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          headerTitle: () => <Header name="Home Screen" />,
+          headerStyle: {
+            height: 150,
+            borderBottomLeftRadius: 50,
+            borderBottomRightRadius: 50,
+            backgroundColor: "#00e4d0",
+            shadowColor: "#000",
+            elevation: 25,
+          },
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default () => {
+  return (
+    <NavigationContainer>
+      <App />
+    </NavigationContainer>
+  );
+};
