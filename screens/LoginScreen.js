@@ -41,17 +41,16 @@ const LoginScreen = () => {
           flexDirection: "row",
           alignItems: "center",
           gap: 5,
-          borderColor: "#D0D0D0",
-          borderWidth: 1,
+          backgroundColor: "#EFF9F5",
           paddingVertical: 5,
           borderRadius: 5,
+          paddingLeft: 5,
           }}
         >
           <Feather name="at-sign" size={24} color="black" />
 
           <TextInput
             style={{
-              color: "gray",
               marginVertical: 10,
               width: 300,
               fontSize: email ? 16 : 16,
@@ -70,10 +69,10 @@ const LoginScreen = () => {
             flexDirection: "row",
             alignItems: "center",
             gap: 5,
-            borderColor: "#D0D0D0",
-            borderWidth: 1,
+            backgroundColor: "#EFF9F5",
             paddingVertical: 5,
             borderRadius: 5,
+            paddingLeft: 5,
           }}
         >
           <Feather name="eye" size={24} color="black" />
@@ -117,6 +116,9 @@ const LoginScreen = () => {
           Login
         </Text>
       </TouchableOpacity>
+
+
+
       <TouchableOpacity
         onPress={() => navigation.navigate("SignUpScreen")}
         style={{ marginTop: 10 }}
