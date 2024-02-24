@@ -10,7 +10,7 @@ const firebaseConfig = {
   projectId: "drive-aac",
   storageBucket: "drive-aac.appspot.com",
   messagingSenderId: "680037822919",
-  appId: "1:680037822919:web:e1fd16033f8841b945e9e2",
+  appId: "1:680037822919:web:e1fd16033f8841b945e9e2"
 };
 
 if (!firebase.apps.length) {

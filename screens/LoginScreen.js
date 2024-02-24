@@ -4,10 +4,14 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
+  Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../config";
+import { Feather } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -23,68 +27,109 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={{ fontWeight: "bold", fontSize: 26 }}>Login</Text>
-      <View style={{ marginTop: 40 }}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Email"
-          onChangeText={(email) => setEmail(email)}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password"
-          onChangeText={(password) => setPassword(password)}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={true}
-        />
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}
+    >
+    <KeyboardAvoidingView>
+    <View style={{ marginTop: 50 }}>
+        <Image source={require("../assets/banner.png")} />
       </View>
+      
+      <View style={{ marginTop: 40}}>
+        <View
+          style={{
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 5,
+          borderColor: "#D0D0D0",
+          borderWidth: 1,
+          paddingVertical: 5,
+          borderRadius: 5,
+          }}
+        >
+          <Feather name="at-sign" size={24} color="black" />
+
+          <TextInput
+            style={{
+              color: "gray",
+              marginVertical: 10,
+              width: 300,
+              fontSize: email ? 16 : 16,
+            }}
+            placeholder="Email"
+            onChangeText={(email) => setEmail(email)}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+      </View>
+
+      <View style={{marginTop: 30}}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 5,
+            borderColor: "#D0D0D0",
+            borderWidth: 1,
+            paddingVertical: 5,
+            borderRadius: 5,
+          }}
+        >
+          <Feather name="eye" size={24} color="black" />
+
+          <TextInput
+            style={{
+              color: "gray",
+              marginVertical: 10,
+              width: 300,
+              fontSize: email ? 16 : 16,
+            }}
+            placeholder="Password"
+            onChangeText={(password) => setPassword(password)}
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry={true}
+          />
+        </View>
+      </View>
+      
       <TouchableOpacity
         onPress={() => loginUser(email, password)}
-        style={styles.button}
+        style={{
+          width: 200,
+          backgroundColor: "black",
+          padding: 15,
+          marginTop: 40,
+          marginLeft: "auto",
+          marginRight: "auto",
+          borderRadius: 6,
+        }}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 22 }}>Login</Text>
+        <Text
+          style={{
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: 16,
+            color: "white",
+          }}
+        >
+          Login
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.navigate("SignUpScreen")}
-        style={{ marginTop: 20 }}
+        style={{ marginTop: 10 }}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 22 }}>
-          Don't have an account ? Register Now
+        <Text style={{ textAlign: "center", fontSize: 16 }}>
+          Don't have an account? Sign up
         </Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 export default LoginScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    marginTop: 100,
-  },
-  TextInput: {
-    paddingTop: 20,
-    paddingBottom: 100,
-    width: 400,
-    fontSize: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "#000",
-    marginBottom: 10,
-    textAlign: "center",
-  },
-  button: {
-    marginTop: 20,
-    height: 70,
-    width: 250,
-    backgroundColor: "#026efd",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 50,
-  },
-});
+const styles = StyleSheet.create({});
