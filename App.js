@@ -27,12 +27,22 @@ function App() {
 
   if (!user) {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
         <Stack.Screen
+          screenOptions={{
+            headerShown: false,
+          }}
           name="LoginScreen"
           component={LoginScreen}
         />
         <Stack.Screen
+          screenOptions={{
+            headerShown: false,
+          }}
           name="SignUpScreen"
           component={SignUpScreen}
         />
@@ -41,11 +51,12 @@ function App() {
   }
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-      />
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
     </Stack.Navigator>
   );
 }

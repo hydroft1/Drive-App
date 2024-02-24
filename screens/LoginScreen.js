@@ -28,32 +28,51 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}
+      style={{ flex: 1, alignItems: "center", backgroundColor: "purple" }}
     >
-    <KeyboardAvoidingView>
-    <View style={{ marginTop: 50 }}>
+      <View style={{ marginTop: 50 }}>
         <Image source={require("../assets/banner.png")} />
       </View>
-      
-      <View style={{ marginTop: 40}}>
-        <View
+
+      <View
+        style={{
+          padding: 30,
+          justifyContent: "space-around",
+          backgroundColor: "white",
+          width: "100%",
+          height: "auto%",
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+        }}
+      >
+        <Text
           style={{
-          flexDirection: "row",
-          alignItems: "center",
-          gap: 5,
-          backgroundColor: "#EFF9F5",
-          paddingVertical: 5,
-          borderRadius: 5,
-          paddingLeft: 5,
+            fontSize: 24,
+            fontWeight: "bold",
+            marginBottom: 10,
+          }}
+        >
+          Bienvenue
+        </Text>
+        <View // Email carré
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 5,
+            backgroundColor: "#EFF9F5",
+            paddingVertical: 5,
+            borderRadius: 8,
+            paddingHorizontal: 15,
+            width: "100%",
           }}
         >
           <Feather name="at-sign" size={24} color="black" />
 
           <TextInput
             style={{
+              width: "100%",
               marginVertical: 10,
-              width: 300,
-              fontSize: email ? 16 : 16,
+              fontSize: 16,
             }}
             placeholder="Email"
             onChangeText={(email) => setEmail(email)}
@@ -61,42 +80,44 @@ const LoginScreen = () => {
             autoCorrect={false}
           />
         </View>
-      </View>
 
-      <View style={{marginTop: 30}}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 5,
-            backgroundColor: "#EFF9F5",
-            paddingVertical: 5,
-            borderRadius: 5,
-            paddingLeft: 5,
-          }}
+        <View // Password Carré
+          style={{ marginTop: 0 }}
         >
-          <Feather name="eye" size={24} color="black" />
-
-          <TextInput
+          <View
             style={{
-              color: "gray",
-              marginVertical: 10,
-              width: 300,
-              fontSize: email ? 16 : 16,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 5,
+              backgroundColor: "#EFF9F5",
+              paddingVertical: 5,
+              borderRadius: 8,
+              paddingHorizontal: 15,
             }}
-            placeholder="Password"
-            onChangeText={(password) => setPassword(password)}
-            autoCapitalize="none"
-            autoCorrect={false}
-            secureTextEntry={true}
-          />
+          >
+            <Feather name="eye" size={24} color="black" />
+
+            <TextInput
+              style={{
+                color: "gray",
+                marginVertical: 10,
+                width: "100%",
+                fontSize: email ? 16 : 16,
+              }}
+              placeholder="Password"
+              onChangeText={(password) => setPassword(password)}
+              autoCapitalize="none"
+              autoCorrect={false}
+              secureTextEntry={true}
+            />
+          </View>
         </View>
       </View>
-      
-      <TouchableOpacity
+
+      <TouchableOpacity // Bouton Login
         onPress={() => loginUser(email, password)}
         style={{
-          width: 200,
+          width: "100%",
           backgroundColor: "black",
           padding: 15,
           marginTop: 40,
@@ -117,17 +138,14 @@ const LoginScreen = () => {
         </Text>
       </TouchableOpacity>
 
-
-
-      <TouchableOpacity
+      <TouchableOpacity // Bouton SignUp
         onPress={() => navigation.navigate("SignUpScreen")}
-        style={{ marginTop: 10 }}
+        style={{ marginTop: 10, width: "100%" }}
       >
         <Text style={{ textAlign: "center", fontSize: 16 }}>
           Don't have an account? Sign up
         </Text>
       </TouchableOpacity>
-    </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
