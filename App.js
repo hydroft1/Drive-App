@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import { firebase } from "./config";
 import LoginScreen from "./screens/LoginScreen";
-import SignUpScreen from "./screens/SignUpScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./screens/HomeScreen";
+import SignUpScreen from "./screens/SignUpScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,38 +25,20 @@ function App() {
 
   if (initializing) return null;
 
-  if (!user) {
-    return (
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen
-          screenOptions={{
-            headerShown: false,
-          }}
-          name="LoginScreen"
-          component={LoginScreen}
-        />
-        <Stack.Screen
-          screenOptions={{
-            headerShown: false,
-          }}
-          name="SignUpScreen"
-          component={SignUpScreen}
-        />
-      </Stack.Navigator>
-    );
-  }
-
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      {!user ? (
+        <>
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+        </>
+      ) : (
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      )}
     </Stack.Navigator>
   );
 }

@@ -5,7 +5,6 @@ import {
   TextInput,
   StyleSheet,
   Image,
-  KeyboardAvoidingView,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -18,6 +17,36 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+
+  registerUser = async (email, password, fullName) => {
+    await firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((user) => {
+      firebase.auth().currentUser.sendEmailVerification({
+        handleCodeInApp: true,
+        url: "https://drive-aac.firebaseapp.com",
+      })
+      .then(() => {
+        alert('Verification email Sent')
+      }).catch((error) => {
+        alert(error.message)
+      })
+      .then(() => {
+        firebase.firestore().collection('users')
+        .doc(firebase.auth().currentUser.uid)
+        .set({
+          fullName,
+          email,
+        })
+      })
+      .catch((error) => {
+        alert(error.message)
+      });
+    })
+    .catch((error) => {
+      alert(error.message)
+    })
+  }
 
   loginUser = async (email, password) => {
     try {
@@ -110,8 +139,8 @@ const LoginScreen = () => {
                 marginVertical: 10,
                 fontSize: 16,
               }}
-              placeholder="Full Name"
-              onChangeText={(email) => setEmail(email)}
+              placeholder="Nom Complet"
+              onChangeText={(fullName) => setFullName(fullName)}
               autoCapitalize="none"
               autoCorrect={false}
             />
@@ -174,8 +203,8 @@ const LoginScreen = () => {
             borderRadius: 8,
           }}
         >
-          <TouchableOpacity // Bouton Login
-            onPress={() => loginUser(email, password)}
+          <TouchableOpacity // Bouton Register
+            onPress={() => registerUser(email, password, fullName)}
           >
             <Text
               style={{
@@ -190,7 +219,7 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </LinearGradient>
 
-        <TouchableOpacity // Bouton SignUp
+        <TouchableOpacity // Bouton Login
           onPress={() => navigation.navigate("LoginScreen")}
           style={{ marginTop: 10, width: "100%" }}
         >
