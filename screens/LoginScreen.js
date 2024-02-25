@@ -62,7 +62,7 @@ const LoginScreen = () => {
           Bienvenue
         </Text>
         
-        <View style={{ gap: 10}}>
+        <View style={{ gap: 15}}>
           <View // Email carré
             style={{
               flexDirection: "row",

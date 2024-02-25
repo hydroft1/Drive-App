@@ -62,7 +62,7 @@ const LoginScreen = () => {
           Bienvenue
         </Text>
         
-        <View style={{ gap: 10}}>
+        <View style={{ gap: 15}}>
           <View // Email carré
             style={{
               flexDirection: "row",
@@ -84,6 +84,33 @@ const LoginScreen = () => {
                 fontSize: 16,
               }}
               placeholder="Email"
+              onChangeText={(email) => setEmail(email)}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
+
+          <View // Full Name
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 5,
+              backgroundColor: "#EFF9F5",
+              paddingVertical: 5,
+              borderRadius: 8,
+              paddingHorizontal: 15,
+              width: "100%",
+            }}
+          >
+            <Feather name="user" size={24} color="black" />
+
+            <TextInput
+              style={{
+                width: "100%",
+                marginVertical: 10,
+                fontSize: 16,
+              }}
+              placeholder="Full Name"
               onChangeText={(email) => setEmail(email)}
               autoCapitalize="none"
               autoCorrect={false}
