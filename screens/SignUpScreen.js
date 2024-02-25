@@ -158,7 +158,7 @@ const LoginScreen = () => {
                 color: "white",
               }}
             >
-              Login
+              S'inscrire
             </Text>
           </TouchableOpacity>
         </LinearGradient>

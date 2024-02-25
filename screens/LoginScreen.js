@@ -158,7 +158,7 @@ const LoginScreen = () => {
                 color: "white",
               }}
             >
-              Login
+              Se connecter
             </Text>
           </TouchableOpacity>
         </LinearGradient>
