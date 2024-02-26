@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Image,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -22,33 +22,40 @@ const LoginScreen = () => {
   const [fullName, setFullName] = useState("");
 
   registerUser = async (email, password, fullName) => {
-    await firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((user) => {
-      firebase.auth().currentUser.sendEmailVerification({
-        handleCodeInApp: true,
-        url: "https://drive-aac.firebaseapp.com",
-      })
-      .then(() => {
-        alert('Verification email Sent')
-      }).catch((error) => {
-        alert(error.message)
-      })
-      .then(() => {
-        firebase.firestore().collection('users')
-        .doc(firebase.auth().currentUser.uid)
-        .set({
-          fullName,
-          email,
-        })
+    await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        firebase
+          .auth()
+          .currentUser.sendEmailVerification({
+            handleCodeInApp: true,
+            url: "https://drive-aac.firebaseapp.com",
+          })
+          .then(() => {
+            alert("Verification email Sent");
+          })
+          .catch((error) => {
+            alert(error.message);
+          })
+          .then(() => {
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(firebase.auth().currentUser.uid)
+              .set({
+                fullName,
+                email,
+              });
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
       })
       .catch((error) => {
-        alert(error.message)
+        alert(error.message);
       });
-    })
-    .catch((error) => {
-      alert(error.message)
-    })
-  }
+  };
 
   loginUser = async (email, password) => {
     try {
@@ -71,7 +78,6 @@ const LoginScreen = () => {
           justifyContent: "space-between",
         }}
       >
-        
         <View style={{ marginTop: 50 }}>
           <Image source={require("../assets/banner.png")} />
         </View>
@@ -96,8 +102,8 @@ const LoginScreen = () => {
           >
             Bienvenue
           </Text>
-          
-          <View style={{ gap: 15}}>
+
+          <View style={{ gap: 15 }}>
             <View // Email carré
               style={{
                 flexDirection: "row",
@@ -113,7 +119,9 @@ const LoginScreen = () => {
               <Feather name="at-sign" size={24} color="black" />
 
               <TextInput
-                onSubmitEditing={() => { allname.focus(); }}
+                onSubmitEditing={() => {
+                  allname.focus();
+                }}
                 returnKeyType="send"
                 style={{
                   width: "100%",
@@ -143,8 +151,12 @@ const LoginScreen = () => {
 
               <TextInput
                 returnKeyType="send"
-                ref={(input) => { allname = input; }}
-                onSubmitEditing={() => { passwordinput.focus(); }}
+                ref={(input) => {
+                  allname = input;
+                }}
+                onSubmitEditing={() => {
+                  passwordinput.focus();
+                }}
                 style={{
                   width: "100%",
                   marginVertical: 10,
@@ -175,7 +187,9 @@ const LoginScreen = () => {
 
                 <TextInput
                   returnKeyType="send"
-                  ref={(input) => { passwordinput = input; }}
+                  ref={(input) => {
+                    passwordinput = input;
+                  }}
                   style={{
                     color: "gray",
                     marginVertical: 10,
@@ -187,7 +201,9 @@ const LoginScreen = () => {
                   autoCapitalize="none"
                   autoCorrect={false}
                   secureTextEntry={true}
-                  onSubmitEditing={() => registerUser(email, password, fullName)}
+                  onSubmitEditing={() =>
+                    registerUser(email, password, fullName)
+                  }
                 />
               </View>
             </View>

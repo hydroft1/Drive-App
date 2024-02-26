@@ -6,7 +6,9 @@ import {
   StyleSheet,
   Image,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -41,146 +43,164 @@ const LoginScreen = () => {
           justifyContent: "space-between",
         }}
       >
-        
-        <View style={{ marginTop: 50 }}>
-          <Image source={require("../assets/banner.png")} />
-        </View>
-
-        <View
-          style={{
-            padding: 30,
-            justifyContent: "space-around",
-            backgroundColor: "white",
-            width: "100%",
-            height: "auto",
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 24,
-              fontWeight: "bold",
-              marginBottom: 10,
-            }}
-          >
-            Bienvenue
-          </Text>
-          
-          <View style={{ gap: 15}}>
-            <View // Email carré
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 5,
-                backgroundColor: "#EFF9F5",
-                paddingVertical: 5,
-                borderRadius: 8,
-                paddingHorizontal: 15,
-                width: "100%",
-              }}
-            >
-              <Feather name="at-sign" size={24} color="black" />
-
-              <TextInput
-                onSubmitEditing={() => { passwordInput.focus(); }}
-                returnKeyType="send"
-                style={{
-                  width: "100%",
-                  marginVertical: 10,
-                  fontSize: 16,
-                }}
-                placeholder="Email"
-                onChangeText={(email) => setEmail(email)}
-                autoCapitalize="none"
-                autoCorrect={false}
-              />
-            </View>
-
-            <View // Password Carré
-              style={{ marginTop: 0 }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 5,
-                  backgroundColor: "#EFF9F5",
-                  paddingVertical: 5,
-                  borderRadius: 8,
-                  paddingHorizontal: 15,
-                }}
-              >
-                <Feather name="eye" size={24} color="black" />
-
-                <TextInput
-                  returnKeyType="send"
-                  ref={(input) => { passwordInput = input; }}
-                  style={{
-                    marginVertical: 10,
-                    width: "100%",
-                    fontSize: email ? 16 : 16,
-                  }}
-                  placeholder="Password"
-                  onChangeText={(password) => setPassword(password)}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  secureTextEntry={true}
-                  onSubmitEditing={() => loginUser(email, password)}
-                />
-              </View>
-            </View>
-          </View>
-
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View
             style={{
-              flexDirection: "row-reverse",
-              marginTop: 12,
-            }}
-          >
-            <Text style={{ fontWeight: "500", color: "#6038E0" }}>
-              Forgot Password
-            </Text>
-          </View>
-
-          <LinearGradient
-            colors={["#B138E0", "#5638E0"]}
-            start={{ x: 0, y: 0.5 }}
-            end={{ x: 1, y: 1 }}
-            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "space-between",
               width: "100%",
-              padding: 15,
-              marginTop: 40,
-              marginLeft: "auto",
-              marginRight: "auto",
-              borderRadius: 8,
             }}
           >
-            <TouchableOpacity // Bouton Login
-              onPress={() => loginUser(email, password)}
+            <View style={{ marginTop: 50 }}>
+              <Image source={require("../assets/banner.png")} />
+            </View>
+            <View
+              style={{
+                padding: 30,
+                justifyContent: "space-around",
+                backgroundColor: "white",
+                width: "100%",
+                height: "auto",
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
+              }}
             >
               <Text
                 style={{
-                  textAlign: "center",
+                  fontSize: 24,
                   fontWeight: "bold",
-                  fontSize: 16,
-                  color: "white",
+                  marginBottom: 10,
                 }}
               >
-                Se connecter
+                Bienvenue
               </Text>
-            </TouchableOpacity>
-          </LinearGradient>
 
-          <TouchableOpacity // Bouton SignUp
-            onPress={() => navigation.navigate("SignUpScreen")}
-            style={{ marginTop: 10, width: "100%" }}
-          >
-            <Text style={{ textAlign: "center", fontSize: 16 }}>
-              Don't have an account? Sign up
-            </Text>
-          </TouchableOpacity>
-        </View>
+              <View style={{ gap: 15 }}>
+                <View // Email carré
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 5,
+                    backgroundColor: "#EFF9F5",
+                    paddingVertical: 5,
+                    borderRadius: 8,
+                    paddingHorizontal: 15,
+                    width: "100%",
+                  }}
+                >
+                  <Feather name="at-sign" size={24} color="black" />
+
+                  <TextInput
+                    onSubmitEditing={() => {
+                      passwordInput.focus();
+                    }}
+                    returnKeyType="send"
+                    style={{
+                      width: "100%",
+                      marginVertical: 10,
+                      fontSize: 16,
+                    }}
+                    placeholder="Email"
+                    onChangeText={(email) => setEmail(email)}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                  />
+                </View>
+
+                <View // Password Carré
+                  style={{ marginTop: 0 }}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5,
+                      backgroundColor: "#EFF9F5",
+                      paddingVertical: 5,
+                      borderRadius: 8,
+                      paddingHorizontal: 15,
+                    }}
+                  >
+                    <Feather name="eye" size={24} color="black" />
+
+                    <TextInput
+                      returnKeyType="send"
+                      ref={(input) => {
+                        passwordInput = input;
+                      }}
+                      style={{
+                        marginVertical: 10,
+                        width: "100%",
+                        fontSize: email ? 16 : 16,
+                      }}
+                      placeholder="Password"
+                      onChangeText={(password) => setPassword(password)}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      secureTextEntry={true}
+                      onSubmitEditing={() => loginUser(email, password)}
+                    />
+                  </View>
+                </View>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: "row-reverse",
+                  marginTop: 12,
+                }}
+              >
+                <Text style={{ fontWeight: "500", color: "#6038E0" }}>
+                  Forgot Password
+                </Text>
+              </View>
+
+              <LinearGradient
+                colors={["#B138E0", "#5638E0"]}
+                start={{ x: 0, y: 0.5 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                  width: "100%",
+                  padding: 15,
+                  marginTop: 40,
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  borderRadius: 8,
+                }}
+              >
+                <TouchableOpacity // Bouton Login
+                  onPress={() => loginUser(email, password)}
+                >
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      fontWeight: "bold",
+                      fontSize: 16,
+                      color: "white",
+                    }}
+                  >
+                    Se connecter
+                  </Text>
+                </TouchableOpacity>
+              </LinearGradient>
+
+              <TouchableOpacity // Bouton SignUp
+                onPress={() => navigation.navigate("SignUpScreen")}
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 10,
+                  width: "100%",
+                }}
+              >
+                <Text style={{ textAlign: "center", fontSize: 16 }}>
+                  Don't have an account? Sign up
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
