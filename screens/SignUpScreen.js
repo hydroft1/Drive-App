@@ -146,7 +146,7 @@ const LoginScreen = () => {
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
-                      gap: 5,
+                      gap: 10,
                       backgroundColor: "#EFF9F5",
                       paddingVertical: 5,
                       borderRadius: 8,
@@ -177,7 +177,7 @@ const LoginScreen = () => {
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
-                      gap: 5,
+                      gap: 10,
                       backgroundColor: "#EFF9F5",
                       paddingVertical: 5,
                       borderRadius: 8,
@@ -214,7 +214,7 @@ const LoginScreen = () => {
                       style={{
                         flexDirection: "row",
                         alignItems: "center",
-                        gap: 5,
+                        gap: 10,
                         backgroundColor: "#EFF9F5",
                         paddingVertical: 5,
                         borderRadius: 8,
@@ -245,6 +245,14 @@ const LoginScreen = () => {
                       />
                     </View>
                   </View>
+
+                  <View style={{justifyContent: "flex-start", flexDirection: "row", paddingHorizontal: 15, flexWrap: 'wrap'}}>
+                    <Text style= {{ fontWeight: "300", fontSize: 11 }}>En vous inscrivant, vous acceptez nos</Text>
+                    <TouchableOpacity>
+                      <Text style={{ color: "#6038E0", fontWeight: "600", fontSize: 12}}>conditions générales et notre politique de confidentialité.</Text>
+                    </TouchableOpacity>
+                  </View>
+
                 </View>
 
                 <View
@@ -258,43 +266,51 @@ const LoginScreen = () => {
                   </Text>
                 </View>
 
-                <LinearGradient
-                  colors={["#B138E0", "#5638E0"]}
-                  start={{ x: 0, y: 0.5 }}
-                  end={{ x: 1, y: 1 }}
-                  style={{
-                    width: "100%",
-                    padding: 15,
-                    marginTop: 40,
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    borderRadius: 8,
-                  }}
-                >
-                  <TouchableOpacity // Bouton Register
-                    onPress={() => registerUser(email, password, fullName)}
+                <View style={{ gap: 20}}>
+                  <LinearGradient
+                    colors={["#B138E0", "#5638E0"]}
+                    start={{ x: 0, y: 0.5 }}
+                    end={{ x: 1, y: 1 }}
+                    style={{
+                      width: "100%",
+                      padding: 15,
+                      marginTop: 40,
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      borderRadius: 8,
+                    }}
                   >
-                    <Text
-                      style={{
-                        textAlign: "center",
-                        fontWeight: "bold",
-                        fontSize: 16,
-                        color: "white",
-                      }}
+                    <TouchableOpacity // Bouton Register
+                      onPress={() => registerUser(email, password, fullName)}
                     >
-                      S'inscrire
-                    </Text>
-                  </TouchableOpacity>
-                </LinearGradient>
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          fontWeight: "bold",
+                          fontSize: 16,
+                          color: "white",
+                        }}
+                      >
+                        S'inscrire
+                      </Text>
+                    </TouchableOpacity>
+                  </LinearGradient>
 
-                <TouchableOpacity // Bouton Login
-                  onPress={() => navigation.navigate("LoginScreen")}
-                  style={{ marginTop: 10, width: "100%" }}
-                >
-                  <Text style={{ textAlign: "center", fontSize: 16 }}>
-                    Vous avez un compte ? Connectez-vous
-                  </Text>
-                </TouchableOpacity>
+                  <View style={{ justifyContent: "center", flexDirection: "row", gap:5}} >
+                    <Text style={{fontSize: 16, fontWeight:"300" }}>
+                        Vous n'avez pas de compte ? 
+                    </Text>
+                    <TouchableOpacity // Bouton Login
+                      onPress={() => navigation.navigate("LoginScreen")}
+                      
+                    >
+                      <Text style={{ textAlign: "center", fontSize: 16, fontWeight:"700", color:"#6038E0" }}>
+                        Connectez-vous
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
               </View>
             </View>
           </TouchableWithoutFeedback>

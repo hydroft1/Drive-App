@@ -76,7 +76,6 @@ const LoginScreen = () => {
                     fontSize: 30,
                     fontWeight: "900",
                     color: "white",
-                    
                   }}
                 >
                   Drive AAC
@@ -108,7 +107,7 @@ const LoginScreen = () => {
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
-                      gap: 5,
+                      gap: 10,
                       backgroundColor: "#EFF9F5",
                       paddingVertical: 5,
                       borderRadius: 8,
@@ -119,7 +118,6 @@ const LoginScreen = () => {
                     <Feather name="at-sign" size={24} color="black" />
 
                     <TextInput
-                      
                       onSubmitEditing={() => {
                         passwordInput.focus();
                       }}
@@ -144,7 +142,7 @@ const LoginScreen = () => {
                       style={{
                         flexDirection: "row",
                         alignItems: "center",
-                        gap: 5,
+                        gap: 10,
                         backgroundColor: "#EFF9F5",
                         paddingVertical: 5,
                         borderRadius: 8,
@@ -184,49 +182,69 @@ const LoginScreen = () => {
                     Mot de passe oublié
                   </Text>
                 </View>
-
-                <LinearGradient
-                  colors={["#B138E0", "#5638E0"]}
-                  start={{ x: 0, y: 0.5 }}
-                  end={{ x: 1, y: 1 }}
-                  style={{
-                    width: "100%",
-                    padding: 15,
-                    marginTop: 40,
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    borderRadius: 8,
-                  }}
-                >
-                  <TouchableOpacity // Bouton Login
-                    onPress={() => loginUser(email, password)}
+                <View style={{ gap: 20}}>
+                  <LinearGradient
+                    colors={["#B138E0", "#5638E0"]}
+                    start={{ x: 0, y: 0.5 }}
+                    end={{ x: 1, y: 1 }}
+                    style={{
+                      width: "100%",
+                      padding: 15,
+                      marginTop: 40,
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      borderRadius: 8,
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 4},
+                      shadowOpacity: 0.25,
+                      shadowRadius: 4,
+                      elevation: 5,
+                      
+                    }}
                   >
-                    <Text
+                    <TouchableOpacity // Bouton Login
+                      onPress={() => loginUser(email, password)}
                       style={{
-                        textAlign: "center",
-                        fontWeight: "bold",
-                        fontSize: 16,
-                        color: "white",
+                        shadowColor: "#000",
+                        shadowOffset: { width: 0, height: 4},
+                        shadowOpacity: 0.25,
+                        shadowRadius: 4,
+                        elevation: 5,
+                        
                       }}
                     >
-                      Se connecter
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          fontWeight: "bold",
+                          fontSize: 16,
+                          color: "white",
+                        }}
+                      >
+                        Se connecter
+                      </Text>
+                    </TouchableOpacity>
+                  </LinearGradient>
+                  
+                  <View style={{ justifyContent: "center", flexDirection: "row", gap:5}}>
+                    <Text style={{fontSize: 16, fontWeight:"300" }}>
+                        Vous n'avez pas de compte ? 
                     </Text>
-                  </TouchableOpacity>
-                </LinearGradient>
+                    <TouchableOpacity // Bouton SignUp
+                      onPress={() => navigation.navigate("SignUpScreen")}
+                      style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        
 
-                <TouchableOpacity // Bouton SignUp
-                  onPress={() => navigation.navigate("SignUpScreen")}
-                  style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: 10,
-                    width: "100%",
-                  }}
-                >
-                  <Text style={{ textAlign: "center", fontSize: 16 }}>
-                    Vous n'avez pas de compte ? Créer un compte
-                  </Text>
-                </TouchableOpacity>
+                      }}
+                    >
+                      <Text style={{ textAlign: "center", fontSize: 16, fontWeight:"700", color:"#6038E0" }}>
+                        Créer un compte
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
             </View>
           </TouchableWithoutFeedback>
