@@ -113,7 +113,7 @@ const LoginScreen = () => {
                       fontSize: 30,
                       fontWeight: "900",
                       color: "white",
-                      fontFamily: "Poppins",
+                      
                     }}
                   >
                     Drive AAC
