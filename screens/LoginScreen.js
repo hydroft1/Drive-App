@@ -119,6 +119,7 @@ const LoginScreen = () => {
                     <Feather name="at-sign" size={24} color="black" />
 
                     <TextInput
+                      
                       onSubmitEditing={() => {
                         passwordInput.focus();
                       }}
@@ -132,6 +133,7 @@ const LoginScreen = () => {
                       onChangeText={(email) => setEmail(email)}
                       autoCapitalize="none"
                       autoCorrect={false}
+                      keyboardType="visible-password"
                     />
                   </View>
 
@@ -179,7 +181,7 @@ const LoginScreen = () => {
                   }}
                 >
                   <Text style={{ fontWeight: "500", color: "#6038E0" }}>
-                    Forgot Password
+                    Mot de passe oublié
                   </Text>
                 </View>
 
@@ -222,7 +224,7 @@ const LoginScreen = () => {
                   }}
                 >
                   <Text style={{ textAlign: "center", fontSize: 16 }}>
-                    Don't have an account? Sign up
+                    Vous n'avez pas de compte ? Créer un compte
                   </Text>
                 </TouchableOpacity>
               </View>

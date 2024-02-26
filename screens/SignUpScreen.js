@@ -254,7 +254,7 @@ const LoginScreen = () => {
                   }}
                 >
                   <Text style={{ fontWeight: "500", color: "#6038E0" }}>
-                    Forgot Password
+                    Mot de passe oublié
                   </Text>
                 </View>
 
@@ -292,7 +292,7 @@ const LoginScreen = () => {
                   style={{ marginTop: 10, width: "100%" }}
                 >
                   <Text style={{ textAlign: "center", fontSize: 16 }}>
-                    You have already an account ? Sign In
+                    Vous avez un compte ? Connectez-vous
                   </Text>
                 </TouchableOpacity>
               </View>
