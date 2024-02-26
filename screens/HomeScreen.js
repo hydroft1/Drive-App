@@ -1,29 +1,42 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from "react-native";
 import React, { useState, useEffect } from "react";
-import { firebase } from '../config';
+import { firebase } from "../config";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { AsyncStorage } from "react-native";
+import { Actions } from "react-native";
 
 const HomeScreen = () => {
-  const [name, setName] = useState('')
+  const [name, setName] = useState("");
 
-  useEffect(() => {
-    firebase.firestore().collection('users')
-    .doc(firebase.auth().currentUser.uid).get()
-    .then((snapshot) => {
-      if(snapshot.exists){
-        setName(snapshot.data())
+  const Home = async (userId) => {
+    (async () => {
+      await AsyncStorage.setItem("userId", userId);
+      Actions.home();
+    })();
+  };
+  
+
+  const redirectToHome = async () => {
+    (async () => {
+      let userId = await AsyncStorage.getItem("userId");
+      if (userId) {
+        Actions.home();
+      } else {
+        // Redirection vers la page de connexion
       }
-      else {
-        console.log('User does not exist')
-      }
-    })
-  }, [])
+    })();
+  };
+
+
   return (
-    <View>
-      <Text>HomeScreen</Text>
-    </View>
-  )
-}
+    <SafeAreaView edges={["top"]}>
+      <View>
+        <Text>HomeView</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
