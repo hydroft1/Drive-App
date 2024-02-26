@@ -129,6 +129,7 @@ const LoginScreen = () => {
                   height: "auto",
                   borderTopLeftRadius: 20,
                   borderTopRightRadius: 20,
+                  paddingBottom: 50,
                 }}
               >
                 <Text
@@ -261,9 +262,11 @@ const LoginScreen = () => {
                     marginTop: 12,
                   }}
                 >
-                  <Text style={{ fontWeight: "500", color: "#6038E0" }}>
-                    Mot de passe oublié
-                  </Text>
+                <TouchableOpacity>
+                    <Text style={{ fontWeight: "500", color: "#6038E0" }}>
+                      Mot de passe oublié
+                    </Text>
+                </TouchableOpacity>
                 </View>
 
                 <View style={{ gap: 20}}>
@@ -297,8 +300,8 @@ const LoginScreen = () => {
                   </LinearGradient>
 
                   <View style={{ justifyContent: "center", flexDirection: "row", gap:5}} >
-                    <Text style={{fontSize: 16, fontWeight:"300" }}>
-                        Vous n'avez pas de compte ? 
+                    <Text style={{fontSize: 16, fontWeight:500 }}>
+                        Vous avez déjà un compte ? 
                     </Text>
                     <TouchableOpacity // Bouton Login
                       onPress={() => navigation.navigate("LoginScreen")}

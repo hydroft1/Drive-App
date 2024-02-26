@@ -10,17 +10,25 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../config";
 import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
+import { Vibration } from "react-native";
+import HapticFeedback from "react-native-haptic-feedback";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const onPress = useCallback(() => {
+    HapticFeedback.trigger(
+      'impactLight',
+    );
+  }, []);
 
   loginUser = async (email, password) => {
     try {
@@ -90,6 +98,7 @@ const LoginScreen = () => {
                   height: "auto",
                   borderTopLeftRadius: 20,
                   borderTopRightRadius: 20,
+                  paddingBottom: 50,
                 }}
               >
                 <Text
@@ -178,11 +187,15 @@ const LoginScreen = () => {
                     marginTop: 12,
                   }}
                 >
-                  <Text style={{ fontWeight: "500", color: "#6038E0" }}>
-                    Mot de passe oublié
-                  </Text>
+                  <TouchableOpacity
+                    onPress={onPress}
+                  >
+                    <Text style={{ fontWeight: "500", color: "#6038E0" }}>
+                      Mot de passe oublié
+                    </Text>
+                  </TouchableOpacity>
                 </View>
-                <View style={{ gap: 20}}>
+                <View style={{ gap: 20 }}>
                   <LinearGradient
                     colors={["#B138E0", "#5638E0"]}
                     start={{ x: 0, y: 0.5 }}
@@ -195,22 +208,20 @@ const LoginScreen = () => {
                       marginRight: "auto",
                       borderRadius: 8,
                       shadowColor: "#000",
-                      shadowOffset: { width: 0, height: 4},
+                      shadowOffset: { width: 0, height: 4 },
                       shadowOpacity: 0.25,
                       shadowRadius: 4,
                       elevation: 5,
-                      
                     }}
                   >
                     <TouchableOpacity // Bouton Login
                       onPress={() => loginUser(email, password)}
                       style={{
                         shadowColor: "#000",
-                        shadowOffset: { width: 0, height: 4},
+                        shadowOffset: { width: 0, height: 4 },
                         shadowOpacity: 0.25,
                         shadowRadius: 4,
                         elevation: 5,
-                        
                       }}
                     >
                       <Text
@@ -225,21 +236,70 @@ const LoginScreen = () => {
                       </Text>
                     </TouchableOpacity>
                   </LinearGradient>
-                  
-                  <View style={{ justifyContent: "center", flexDirection: "row", gap:5}}>
-                    <Text style={{fontSize: 16, fontWeight:"300" }}>
-                        Vous n'avez pas de compte ? 
+
+                  <View style={{ width: "100%", alignItems: "center" }}>
+                    <Text style={{ fontWeight: 600, fontSize: 18 }}>Or</Text>
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: "#EFF9F5",
+                        padding: 10,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Image
+                        source={require("../assets/google-icon.png")}
+                        style={{ width: 36, height: 36 }}
+                        resizeMode="contain"
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: "#EFF9F5",
+                        padding: 10,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Image
+                        source={require("../assets/facebook-icon.png")}
+                        style={{ width: 36, height: 36 }}
+                        resizeMode="contain"
+                      />
+                    </TouchableOpacity>
+                  </View>
+
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      flexDirection: "row",
+                      gap: 5,
+                    }}
+                  >
+                    <Text style={{ fontSize: 16, fontWeight: 500 }}>
+                      Vous n'avez pas de compte ?
                     </Text>
                     <TouchableOpacity // Bouton SignUp
                       onPress={() => navigation.navigate("SignUpScreen")}
                       style={{
                         alignItems: "center",
                         justifyContent: "center",
-                        
-
                       }}
                     >
-                      <Text style={{ textAlign: "center", fontSize: 16, fontWeight:"700", color:"#6038E0" }}>
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          fontSize: 16,
+                          fontWeight: "700",
+                          color: "#6038E0",
+                        }}
+                      >
                         Créer un compte
                       </Text>
                     </TouchableOpacity>
