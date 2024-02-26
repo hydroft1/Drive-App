@@ -16,6 +16,8 @@ import { firebase } from "../config";
 import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -23,40 +25,14 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
 
-  registerUser = async (email, password, fullName) => {
-    await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        firebase
-          .auth()
-          .currentUser.sendEmailVerification({
-            handleCodeInApp: true,
-            url: "https://drive-aac.firebaseapp.com",
-          })
-          .then(() => {
-            alert("Verification email Sent");
-          })
-          .catch((error) => {
-            alert(error.message);
-          })
-          .then(() => {
-            firebase
-              .firestore()
-              .collection("users")
-              .doc(firebase.auth().currentUser.uid)
-              .set({
-                fullName,
-                email,
-              });
-          })
-          .catch((error) => {
-            alert(error.message);
-          });
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+  registerUser = async () => {
+    if (email && password) {
+      try {
+        await createUserWithEmailAndPassword(firebase.auth(), email, password); // Utilisez la méthode correctement en passant firebase.auth() comme premier argument
+      } catch (err) {
+        console.log("got error: ", err);
+      }
+    }
   };
 
   loginUser = async (email, password) => {
