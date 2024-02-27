@@ -165,12 +165,12 @@ const LoginScreen = () => {
                     <Feather name="user" size={24} color="black" />
 
                     <TextInput
+                      onSubmitEditing={() => {
+                        passwordinput.focus();
+                      }}
                       returnKeyType="send"
                       ref={(input) => {
                         allname = input;
-                      }}
-                      onSubmitEditing={() => {
-                        passwordinput.focus();
                       }}
                       style={{
                         width: "100%",
