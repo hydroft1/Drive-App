@@ -3,82 +3,69 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignUpScreen";
-import Track from "../screens/Track";
+import ActivityScreen from "../screens/ActivityScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AntDesign } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+import TrackScreen from "../screens/TrackScreen";
+import { Feather } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
   function BottomTabs() {
     return (
-      <Tab.Navigator>
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarLabel: "Home",
-            tabBarLabelStyle: { color: "black" },
-            headerShown: false,
-            tabBarIcon: ({ focused }) =>
-              focused ? (
-                <Ionicons name="home" size={24} color="black" />
-              ) : (
-                <Ionicons name="home-outline" size={24} color="black" />
-              ),
-          }}
-        />
-
-        <Tab.Screen
-          name="Thread"
-          component={ThreadsScreen}
-          options={{
-            tabBarLabel: "create",
-            tabBarLabelStyle: { color: "black" },
-            headerShown: false,
-            tabBarIcon: ({ focused }) =>
-              focused ? (
-                <Ionicons name="create" size={24} color="black" />
-              ) : (
-                <Ionicons name="create-outline" size={24} color="black" />
-              ),
-          }}
-        />
-
+      <Tab.Navigator initialRouteName="Home">
         <Tab.Screen
           name="Activity"
           component={ActivityScreen}
           options={{
-            tabBarLabel: "Activity",
+            tabBarLabel: "",
             tabBarLabelStyle: { color: "black" },
             headerShown: false,
             tabBarIcon: ({ focused }) =>
               focused ? (
-                <AntDesign name="heart" size={24} color="black" />
+                <Feather name="clipboard" size={24} color="#6038E0" />
               ) : (
-                <AntDesign name="hearto" size={24} color="black" />
+                <Feather name="clipboard" size={24} color="black" />
               ),
           }}
         />
 
         <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
+          name="Home"
+          component={HomeScreen}
           options={{
-            tabBarLabel: "Profile",
+            tabBarLabel: "",
             tabBarLabelStyle: { color: "black" },
             headerShown: false,
             tabBarIcon: ({ focused }) =>
               focused ? (
-                <Ionicons name="person" size={24} color="black" />
+                <Feather name="home" size={24} color="#6038E0" />
               ) : (
-                <Ionicons name="person-outline" size={24} color="black" />
+                <Feather name="home" size={24} color="black" />
               ),
           }}
         />
+
+        <Tab.Screen
+          name="Track"
+          component={TrackScreen}
+          options={{
+            tabBarLabel: "",
+            tabBarLabelStyle: { color: "black" },
+            headerShown: false,
+            tabBarIcon: ({ focused }) =>
+              focused ? (
+                <MaterialIcons name="speed" size={24} color="#6038E0" />
+              ) : (
+                <MaterialIcons name="speed" size={24} color="black" />
+              ),
+          }}
+        />
+
       </Tab.Navigator>
     );
   }

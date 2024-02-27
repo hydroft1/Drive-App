@@ -10,34 +10,74 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import React, { useCallback, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 import { firebase } from "../config";
 import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import { Vibration } from "react-native";
-import HapticFeedback from "react-native-haptic-feedback";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from "@react-navigation/native";
+
 
 const LoginScreen = () => {
-  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigation = useNavigation();
+  
 
-  const onPress = useCallback(() => {
-    HapticFeedback.trigger(
-      'impactLight',
-    );
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(firebase.auth(), (user) => {
+      if (user) {
+        // User is signed in.
+        setTimeout(() => {
+          navigation.replace("Main");
+        }, 400);
+      }
+    });
+
+    const checkLoginStatus = async () => {
+      try {
+        const token = await AsyncStorage.getItem("authToken");
+
+        if (token) {
+          setTimeout(() => {
+            navigation.replace("Main");
+          }, 400);
+        }
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    checkLoginStatus();
+
+    return () => unsubscribe();
   }, []);
 
-  loginUser = async (email, password) => {
-    try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+  const handleLogin = () => {
+    
+    const user = {
+      email: email,
+      password: password,
+    };
 
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(user.email, user.password)
+      .then((response) => {
+        console.log(response);
+        const user = response.user;
+        const token = user.getIdToken();
+        AsyncStorage.setItem("authToken", JSON.stringify(token));
+        navigation.navigate("Main");
+      })
+      .catch((error) => {
+        Alert.alert("Login error");
+        console.log("error login screen ", error);
+      });
+  };
   return (
     <LinearGradient
       colors={["#B138E0", "#5638E0"]}
@@ -215,7 +255,7 @@ const LoginScreen = () => {
                     }}
                   >
                     <TouchableOpacity // Bouton Login
-                      onPress={() => loginUser(email, password)}
+                      onPress={handleLogin}
                       style={{
                         shadowColor: "#000",
                         shadowOffset: { width: 0, height: 4 },

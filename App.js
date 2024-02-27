@@ -7,47 +7,10 @@ import HomeScreen from "./screens/HomeScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import StackNavigator from "./components/StackNavigator";
 
-const Stack = createNativeStackNavigator();
-
-function App() {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
-
-  // Handle user state changes
-  function onAuthStateChange(user) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
-
-  useEffect(() => {
-    const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChange);
-    return subscriber;
-  }, []);
-
-  if (initializing) return null;
-
+export default function App() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      {!user ? (
-        <>
-          <Stack.Screen name="LoginScreen" component={LoginScreen} />
-          <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-        </>
-      ) : (
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      )}
-    </Stack.Navigator>
+    <>
+      <StackNavigator/>
+    </>
   );
 }
-
-export default () => {
-  return (
-    <NavigationContainer>
-      <App />
-    </NavigationContainer>
-  );
-};
