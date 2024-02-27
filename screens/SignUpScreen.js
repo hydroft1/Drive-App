@@ -216,9 +216,7 @@ const LoginScreen = () => {
                         autoCapitalize="none"
                         autoCorrect={false}
                         secureTextEntry={true}
-                        onSubmitEditing={() =>
-                          registerUser(email, password, fullName)
-                        }
+                        onSubmitEditing={Keyboard.dismiss}
                       />
                     </View>
                   </View>

@@ -175,7 +175,7 @@ const LoginScreen = () => {
                         autoCapitalize="none"
                         autoCorrect={false}
                         secureTextEntry={true}
-                        onSubmitEditing={() => loginUser(email, password)}
+                        onSubmitEditing={Keyboard.dismiss}
                       />
                     </View>
                   </View>
@@ -188,7 +188,7 @@ const LoginScreen = () => {
                   }}
                 >
                   <TouchableOpacity
-                    onPress={onPress}
+                   // onPress={onPress}
                   >
                     <Text style={{ fontWeight: "500", color: "#6038E0" }}>
                       Mot de passe oublié
