@@ -133,7 +133,7 @@ const HomeScreen = () => {
             >
               <View style={{flexDirection: "row", alignItems: "center", gap:5}}>
                 <Feather name="clock" size={24} color="#6038E0" />
-                <Text style={{fontSize:13, fontWeight:700}}>Trajets</Text>
+                <Text style={{fontSize:13, fontWeight:700}}>Temps</Text>
               </View>
               <View style={{flexDirection:"row", alignItems: "flex-end"}} >
                 <Text style={{fontSize:20, fontWeight:700}}>126</Text>
@@ -156,7 +156,7 @@ const HomeScreen = () => {
             >
               <View style={{flexDirection: "row", alignItems: "center", gap:5}}>
                 <Feather name="compass" size={24} color="#6038E0" />
-                <Text style={{fontSize:13, fontWeight:700}}>Trajets</Text>
+                <Text style={{fontSize:13, fontWeight:700}}>Km</Text>
               </View>
               <Text style={{fontSize:20, fontWeight:700}}>1750</Text>
             </View>
@@ -179,7 +179,57 @@ const HomeScreen = () => {
           </View>
         </TouchableOpacity>
 
-        
+        <TouchableOpacity style={{paddingTop: 30}}>
+          <View
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              borderRadius: 15,
+              paddingVertical: 10,
+              gap: 5,
+              flexDirection: "row",
+              justifyContent: "center",
+              paddingBottom:15,
+            }}
+          >
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/cg.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>2</Text>
+              </View>
+            </View>
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/cd.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>10</Text>
+              </View>
+            </View>
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/bg.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>0</Text>
+              </View>
+            </View>
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/bd.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>11</Text>
+              </View>
+            </View>
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/rg.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>45</Text>
+              </View>
+            </View>
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/rd.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>9</Text>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
 
       </View>
     </SafeAreaView>
