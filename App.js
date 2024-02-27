@@ -5,6 +5,7 @@ import LoginScreen from "./screens/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./screens/HomeScreen";
 import SignUpScreen from "./screens/SignUpScreen";
+import StackNavigator from "./components/StackNavigator";
 
 const Stack = createNativeStackNavigator();
 
