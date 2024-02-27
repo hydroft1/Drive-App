@@ -1,8 +1,6 @@
 import {
-  StyleSheet,
   Text,
   View,
-  Pressable,
   Image,
   TouchableOpacity,
   Dimensions,

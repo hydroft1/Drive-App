@@ -10,14 +10,20 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TrackScreen from "../screens/TrackScreen";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
   function BottomTabs() {
     return (
-      <Tab.Navigator initialRouteName="Home">
+      <Tab.Navigator 
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          
+        }}
+      >
         <Tab.Screen
           name="Activity"
           component={ActivityScreen}
