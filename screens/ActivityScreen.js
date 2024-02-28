@@ -50,9 +50,10 @@ const ActivityScreen = () => {
         flex: 1,
         alignItems: "center",
         backgroundColor: "rgba(96, 56, 224, 0.18)",
-      }}>
+      }}
+      >
 
-          <View style={{ width: "100%", paddingHorizontal: 30, gap: 10 }}>
+        <View style={{ width: "100%", paddingHorizontal: 30, gap: 10 }}>
             <View // TOP
             style={{
               flexDirection: "row",
@@ -60,7 +61,7 @@ const ActivityScreen = () => {
               justifyContent: "space-between",
               paddingVertical: 10,
             }}
-          >
+        >
             <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
               <Image
                 source={require("../assets/profile/2.png")}
@@ -97,10 +98,10 @@ const ActivityScreen = () => {
             </View>
             <ScrollView style={{width: "100%"}} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
               <View style={{width: "100%", gap: 20, paddingBottom: 100}}>
-                {renderComponents()}
+                {renderComponents().reverse()}
               </View>
-          </ScrollView>
-          </View>
+            </ScrollView>
+        </View>
       </SafeAreaView>
     </GestureHandlerRootView>
   )
