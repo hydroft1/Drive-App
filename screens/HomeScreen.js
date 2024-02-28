@@ -5,11 +5,11 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { NavigationContainer } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import { LineChart } from 'react-native-chart-kit';
+import BottomSheet, { BottomSheetView} from "@gorhom/bottom-sheet";
 
 const data = {
   labels: ['Mai', 'Juin', 'Jui', 'Aou', 'Sep', 'Oct'],
@@ -37,7 +37,14 @@ const chartConfig = {
   },
 };
 
+
+
 const HomeScreen = () => {
+  const sheetRef = useRef<BottomSheet>(null);
+  const [isOpen, setIsOpen] = useState(true);
+
+  const snapPoints = ["0%","80%"];
+
   return (
     <SafeAreaView
       edges={["top"]}
@@ -84,9 +91,11 @@ const HomeScreen = () => {
                 padding: 10,
                 borderRadius: 10,
               }}
+              
             >
               <Feather name="settings" size={24} color="black" />
             </TouchableOpacity>
+            
           </View>
         </View>
 

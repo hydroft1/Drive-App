@@ -15,11 +15,11 @@ const TrackScreen = () => {
         alignItems: "center",
         backgroundColor: "rgba(96, 56, 224, 0.18)",
       }}>
-        <ScrollView>
+
           <View style={{ width: "100%", paddingHorizontal: 30, gap: 10 }}>
 
           </View>
-        </ScrollView>
+
       </SafeAreaView>
     </GestureHandlerRootView>
   )
