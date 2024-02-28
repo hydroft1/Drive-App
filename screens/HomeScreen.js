@@ -40,11 +40,6 @@ const chartConfig = {
 
 
 const HomeScreen = () => {
-  const sheetRef = useRef<BottomSheet>(null);
-  const [isOpen, setIsOpen] = useState(true);
-
-  const snapPoints = ["0%","80%"];
-
   return (
     <SafeAreaView
       edges={["top"]}
