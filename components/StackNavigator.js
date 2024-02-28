@@ -99,6 +99,11 @@ const StackNavigator = () => {
           component={UserSettingsScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Activity"
+          component={ActivityScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
       
     </NavigationContainer>

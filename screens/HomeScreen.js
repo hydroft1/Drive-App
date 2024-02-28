@@ -104,7 +104,7 @@ const HomeScreen = () => {
             justifyContent: "space-between",
           }}
         >
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Activity')}>
             <View
               style={{
                 backgroundColor: "white",
@@ -124,7 +124,7 @@ const HomeScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Activity')}>
             <View
               style={{
                 backgroundColor: "white",
@@ -147,7 +147,7 @@ const HomeScreen = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Activity')}>
             <View
               style={{
                 backgroundColor: "white",
@@ -168,7 +168,7 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Activity')}>
           <View style={{ width: "100%", height: 220, marginTop: 20, alignItems: "center" }}>
             <LineChart
               data={data}
@@ -184,7 +184,7 @@ const HomeScreen = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{paddingTop: 30}}>
+        <TouchableOpacity style={{paddingTop: 30}} onPress={() => navigation.navigate('Activity')}>
           <View
             style={{
               backgroundColor: "white",
