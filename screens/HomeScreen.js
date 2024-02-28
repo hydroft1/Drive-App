@@ -12,6 +12,8 @@ import { Feather } from "@expo/vector-icons";
 import { LineChart } from 'react-native-chart-kit';
 import { firebase } from '../config';
 import { dataArray } from '../components/TripData';
+import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 
 const convertDurationToHours = (duration) => {
@@ -75,6 +77,8 @@ const updatedData = {
     },
   ],
 };
+
+
 
 const chartConfig = {
   backgroundColor: '#ffffff',
@@ -147,7 +151,54 @@ const HomeScreen = () => {
     return acc;
   }, { bg: 0, bd: 0, cg: 0, cd: 0, rg: 0, rd: 0 });
   
+  const calculateTotalValues = (dataArray) => {
+    let totalCampagne = 0;
+    let totalVille = 0;
+    let totalVoieRapide = 0;
+    let totalAutoroute = 0;
+  
+    // Parcourir chaque élément du tableau dataArray
+    dataArray.forEach((trip) => {
+      // Ajouter les valeurs de chaque catégorie à leurs totaux respectifs
+      totalCampagne += trip.campagne || 0;
+      totalVille += trip.ville || 0;
+      totalVoieRapide += trip.voieRapide || 0;
+      totalAutoroute += trip.autoroute || 0;
+    });
+  
+    // Retourner un objet contenant les totaux de chaque catégorie
+    return {
+      totalCampagne,
+      totalVille,
+      totalVoieRapide,
+      totalAutoroute,
+    };
+  };
+  
+  
+  // Calcul des pourcentages
+  const totalCampagne = dataArray.reduce((acc, trip) => acc + trip.campagne, 0);
+  const totalVille = dataArray.reduce((acc, trip) => acc + trip.ville, 0);
+  const totalAutoroute = dataArray.reduce((acc, trip) => acc + trip.autoroute, 0);
+  const totalVoieRapide = dataArray.reduce((acc, trip) => acc + trip.voieRapide, 0);
 
+  const totalValues = {
+    totalCampagne,
+    totalVille,
+    totalAutoroute,
+    totalVoieRapide,
+  };
+
+  const totalPourcentage = totalCampagne + totalVille + totalVoieRapide + totalAutoroute;
+
+  const pourcentageCampagne = Math.floor((totalCampagne / totalPourcentage) * 100);
+  const pourcentageVille = Math.floor((totalVille / totalPourcentage) * 100);
+  const pourcentageVoieRapide = Math.floor((totalVoieRapide / totalPourcentage) * 100);
+  const pourcentageAutoroute = Math.floor((totalAutoroute / totalPourcentage) * 100);
+  
+
+  
+  
   
   
 
@@ -342,6 +393,46 @@ const HomeScreen = () => {
                 <Text style={{fontWeight:700, color: "white"}}>{totals.rd}</Text>
               </View>
             </View>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={{paddingTop: 30}} onPress={() => navigation.navigate('Activity')}>
+          <View
+                      style={{
+                        backgroundColor: "white",
+                        width: "100%",
+                        borderRadius: 15,
+                        paddingVertical: 10,
+                        gap: 5,
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        paddingBottom:15,
+                      }}
+          >
+              <View style={{alignItems: "center", gap:5}}>
+                <Feather name="star" size={24} color="blue" />
+                <View style={{backgroundColor: "blue", paddingHorizontal: 16, borderRadius: 5}}>
+                  <Text style={{fontWeight:700, color: "white"}}>{pourcentageCampagne}%</Text>
+                </View>
+              </View>
+              <View style={{alignItems: "center", gap:5}}>
+                <Ionicons name="flash-outline" size={24} color="purple" />
+                <View style={{backgroundColor: "purple", paddingHorizontal: 16, borderRadius: 5}}>
+                  <Text style={{fontWeight:700, color: "white"}}>{pourcentageVille}%</Text>
+                </View>
+              </View>
+              <View style={{alignItems: "center", gap:5}}>
+                <Feather name="figma" size={24} color="green" />
+                <View style={{backgroundColor: "green", paddingHorizontal: 16, borderRadius: 5}}>
+                  <Text style={{fontWeight:700, color: "white"}}>{pourcentageAutoroute}%</Text>
+                </View>
+              </View>
+              <View style={{alignItems: "center", gap:5}}>
+                <Feather name="trello" size={24} color="orange" />
+                <View style={{backgroundColor: "orange", paddingHorizontal: 16, borderRadius: 5}}>
+                  <Text style={{fontWeight:700, color: "white"}}>{pourcentageVoieRapide}%</Text>
+                </View>
+              </View>
           </View>
         </TouchableOpacity>
 
