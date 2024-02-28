@@ -18,7 +18,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");

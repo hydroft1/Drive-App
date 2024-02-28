@@ -18,6 +18,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUpScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,22 +35,27 @@ const SignUpScreen = () => {
           email,
           password
         );
-  
+
         if (userCredential && userCredential.user) {
           const user = userCredential.user;
           // Mise à jour du profil de l'utilisateur
           await firebase.auth().currentUser.updateProfile({
-            Prénom: prenom,
+            displayName: prenom, // Assurez-vous que la clé est "displayName" pour stocker le prénom dans le profil de l'utilisateur
           });
-  
+
           // Enregistrement de l'utilisateur dans Firestore
           await addDoc(collection(firebase.firestore(), "users"), {
             uid: user.uid,
             email: user.email,
-            Prénom: prenom,
+            displayName: prenom,
           });
-  
-          navigation.navigate("Main");
+
+          // Stockage de l'authToken après la création du compte
+          const token = await user.getIdToken();
+          await AsyncStorage.setItem("authToken", token);
+
+          // Redirection vers la page d'accueil après la création de compte
+          navigation.replace("Main");
         }
       } catch (error) {
         console.error("Erreur lors de l'inscription:", error);
