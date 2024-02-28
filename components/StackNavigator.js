@@ -89,12 +89,18 @@ const StackNavigator = () => {
           component={SignUpScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        <Stack.Screen 
           name="Main"
           component={BottomTabs}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="UserSettings"
+          component={UserSettingsScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
+      
     </NavigationContainer>
   );
 };
