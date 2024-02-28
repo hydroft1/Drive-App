@@ -82,12 +82,12 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Login"
           component={LoginScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, gestureEnabled: false }}
         />
         <Stack.Screen
           name="SignUp"
           component={SignUpScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, gestureEnabled: false }}
         />
         <Stack.Screen 
           name="Main"
@@ -98,6 +98,7 @@ const StackNavigator = () => {
           name="UserSettings"
           component={UserSettingsScreen}
           options={{ headerShown: false }}
+          
         />
         <Stack.Screen
           name="Activity"

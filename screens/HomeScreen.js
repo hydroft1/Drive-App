@@ -10,7 +10,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import { LineChart } from 'react-native-chart-kit';
 import { useNavigation } from "@react-navigation/native";
-import UserSettingsScreen from "./UserSettingsScreen";
 
 const data = {
   labels: ['Mai', 'Juin', 'Jui', 'Aou', 'Sep', 'Oct'],

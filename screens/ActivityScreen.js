@@ -1,11 +1,14 @@
-import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
-import React from 'react'
+import { Text, View, Image, TouchableOpacity, StyleSheet, Anim } from "react-native";
+import React, { useRef, useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+
 
 const ActivityScreen = () => {
+  const navigation = useNavigation();
   return (
     <GestureHandlerRootView style={{ flex: 1}}>
       <SafeAreaView 
@@ -51,8 +54,9 @@ const ActivityScreen = () => {
                 style={{
                   backgroundColor: "#EFF9F5",
                   padding: 10,
-                  borderRadius: 10,
+                  borderRadius: 10,                  
                 }}
+                onPress={() => navigation.replace('UserSettings')}
               >
                 <Feather name="settings" size={24} color="black" />
               </TouchableOpacity>

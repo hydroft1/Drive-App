@@ -13,7 +13,7 @@ const UserSettingsScreen = () => {
     try {
       await firebase.auth().signOut();
       await AsyncStorage.removeItem("authToken");
-      navigation.navigate("Login");
+      navigation.replace("Login");
     } catch (error) {
       console.log("Error signing out: ", error);
     }

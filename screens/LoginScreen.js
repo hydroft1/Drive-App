@@ -15,11 +15,10 @@ import { firebase } from "../config";
 import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
-
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -64,7 +63,7 @@ const LoginScreen = () => {
         const user = response.user;
         user.getIdToken().then((token) => {
           AsyncStorage.setItem("authToken", token).then(() => {
-            navigation.navigate("Main");
+            navigation.replace("Main");
           });
         });
       })
@@ -78,114 +77,79 @@ const LoginScreen = () => {
   
   return (
     <LinearGradient
-      colors={["#B138E0", "#5638E0"]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 0 }}
-      style={{ flex: 1 }}
-    >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        colors={["#B138E0", "#5638E0"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
         style={{ flex: 1 }}
       >
-        <SafeAreaView
-          edges={["top"]}
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ flex: 1 }}
         >
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
-            >
+          <SafeAreaView
+            edges={["top"]}
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View
                 style={{
-                  width: "100%",
+                  flex: 1,
                   alignItems: "center",
-                }}
-              >
-                <Image
-                  style={{ height: 300, width: "60%", opacity: 0.5 }}
-                  source={require("../assets/banner.png")}
-                  resizeMode="contain"
-                />
-                <Text
-                  style={{
-                    position: "absolute",
-                    bottom: 50,
-                    fontSize: 30,
-                    fontWeight: "900",
-                    color: "white",
-                  }}
-                >
-                  Drive AAC
-                </Text>
-              </View>
-              <View
-                style={{
-                  padding: 30,
-                  justifyContent: "space-around",
-                  backgroundColor: "white",
+                  justifyContent: "space-between",
                   width: "100%",
-                  height: "auto",
-                  borderTopLeftRadius: 20,
-                  borderTopRightRadius: 20,
-                  paddingBottom: 50,
                 }}
               >
-                <Text
+                <View
                   style={{
-                    fontSize: 24,
-                    fontWeight: "bold",
-                    marginBottom: 10,
+                    width: "100%",
+                    alignItems: "center",
                   }}
                 >
-                  Bienvenue
-                </Text>
-
-                <View style={{ gap: 15 }}>
-                  <View // Email carré
+                  <Image
+                    style={{ height: 300, width: "60%", opacity: 0.5 }}
+                    source={require("../assets/banner.png")}
+                    resizeMode="contain"
+                  />
+                  <Text
                     style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 10,
-                      backgroundColor: "#EFF9F5",
-                      paddingVertical: 5,
-                      borderRadius: 8,
-                      paddingHorizontal: 15,
-                      width: "100%",
+                      position: "absolute",
+                      bottom: 50,
+                      fontSize: 30,
+                      fontWeight: "900",
+                      color: "white",
                     }}
                   >
-                    <Feather name="at-sign" size={24} color="black" />
-
-                    <TextInput
-                      onSubmitEditing={() => {
-                        passwordInput.focus();
-                      }}
-                      returnKeyType="send"
-                      style={{
-                        width: "100%",
-                        marginVertical: 10,
-                        fontSize: 16,
-                      }}
-                      placeholder="Email"
-                      onChangeText={(email) => setEmail(email)}
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      keyboardType="visible-password"
-                    />
-                  </View>
-
-                  <View // Password Carré
-                    style={{ marginTop: 0 }}
+                    Drive AAC
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    padding: 30,
+                    justifyContent: "space-around",
+                    backgroundColor: "white",
+                    width: "100%",
+                    height: "auto",
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20,
+                    paddingBottom: 50,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 24,
+                      fontWeight: "bold",
+                      marginBottom: 10,
+                    }}
                   >
-                    <View
+                    Bienvenue
+                  </Text>
+
+                  <View style={{ gap: 15 }}>
+                    <View // Email carré
                       style={{
                         flexDirection: "row",
                         alignItems: "center",
@@ -194,67 +158,92 @@ const LoginScreen = () => {
                         paddingVertical: 5,
                         borderRadius: 8,
                         paddingHorizontal: 15,
+                        width: "100%",
                       }}
                     >
-                      <Feather name="eye" size={24} color="black" />
+                      <Feather name="at-sign" size={24} color="black" />
 
                       <TextInput
+                        onSubmitEditing={() => {
+                          passwordInput.focus();
+                        }}
                         returnKeyType="send"
-                        ref={(input) => {
-                          passwordInput = input;
-                        }}
                         style={{
-                          marginVertical: 10,
                           width: "100%",
-                          fontSize: email ? 16 : 16,
+                          marginVertical: 10,
+                          fontSize: 16,
                         }}
-                        placeholder="Password"
-                        onChangeText={(password) => setPassword(password)}
+                        placeholder="Email"
+                        onChangeText={(email) => setEmail(email)}
                         autoCapitalize="none"
                         autoCorrect={false}
-                        secureTextEntry={true}
-                        onSubmitEditing={Keyboard.dismiss}
+                        keyboardType="visible-password"
                       />
                     </View>
-                  </View>
-                </View>
 
-                <View
-                  style={{
-                    flexDirection: "row-reverse",
-                    marginTop: 12,
-                  }}
-                >
-                  <TouchableOpacity
-                   // onPress={onPress}
-                  >
-                    <Text style={{ fontWeight: "500", color: "#6038E0" }}>
-                      Mot de passe oublié
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={{ gap: 20 }}>
-                  <LinearGradient
-                    colors={["#B138E0", "#5638E0"]}
-                    start={{ x: 0, y: 0.5 }}
-                    end={{ x: 1, y: 1 }}
+                    <View // Password Carré
+                      style={{ marginTop: 0 }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 10,
+                          backgroundColor: "#EFF9F5",
+                          paddingVertical: 5,
+                          borderRadius: 8,
+                          paddingHorizontal: 15,
+                        }}
+                      >
+                        <Feather name="eye" size={24} color="black" />
+
+                        <TextInput
+                          returnKeyType="send"
+                          ref={(input) => {
+                            passwordInput = input;
+                          }}
+                          style={{
+                            marginVertical: 10,
+                            width: "100%",
+                            fontSize: email ? 16 : 16,
+                          }}
+                          placeholder="Password"
+                          onChangeText={(password) => setPassword(password)}
+                          autoCapitalize="none"
+                          autoCorrect={false}
+                          secureTextEntry={true}
+                          onSubmitEditing={Keyboard.dismiss}
+                        />
+                      </View>
+                    </View>
+                  </View>
+
+                  <View
                     style={{
-                      width: "100%",
-                      padding: 15,
-                      marginTop: 40,
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      borderRadius: 8,
-                      shadowColor: "#000",
-                      shadowOffset: { width: 0, height: 4 },
-                      shadowOpacity: 0.25,
-                      shadowRadius: 4,
-                      elevation: 5,
+                      flexDirection: "row-reverse",
+                      marginTop: 12,
                     }}
                   >
-                    <TouchableOpacity // Bouton Login
-                      onPress={handleLogin}
+                    <TouchableOpacity
+                    // onPress={onPress}
+                    >
+                      <Text style={{ fontWeight: "500", color: "#6038E0" }}>
+                        Mot de passe oublié
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{ gap: 20 }}>
+                    <LinearGradient
+                      colors={["#B138E0", "#5638E0"]}
+                      start={{ x: 0, y: 0.5 }}
+                      end={{ x: 1, y: 1 }}
                       style={{
+                        width: "100%",
+                        padding: 15,
+                        marginTop: 40,
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        borderRadius: 8,
                         shadowColor: "#000",
                         shadowOffset: { width: 0, height: 4 },
                         shadowOpacity: 0.25,
@@ -262,93 +251,104 @@ const LoginScreen = () => {
                         elevation: 5,
                       }}
                     >
-                      <Text
+                      <TouchableOpacity // Bouton Login
+                        onPress={handleLogin}
                         style={{
-                          textAlign: "center",
-                          fontWeight: "bold",
-                          fontSize: 16,
-                          color: "white",
+                          shadowColor: "#000",
+                          shadowOffset: { width: 0, height: 4 },
+                          shadowOpacity: 0.25,
+                          shadowRadius: 4,
+                          elevation: 5,
                         }}
                       >
-                        Se connecter
-                      </Text>
-                    </TouchableOpacity>
-                  </LinearGradient>
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            fontWeight: "bold",
+                            fontSize: 16,
+                            color: "white",
+                          }}
+                        >
+                          Se connecter
+                        </Text>
+                      </TouchableOpacity>
+                    </LinearGradient>
 
-                  <View style={{ width: "100%", alignItems: "center" }}>
-                    <Text style={{ fontWeight: 600, fontSize: 18 }}>Or</Text>
-                  </View>
+                    <View style={{ width: "100%", alignItems: "center" }}>
+                      <Text style={{ fontWeight: 600, fontSize: 18 }}>Or</Text>
+                    </View>
 
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <TouchableOpacity
+                    <View
                       style={{
-                        backgroundColor: "#EFF9F5",
-                        padding: 10,
-                        borderRadius: 10,
+                        flexDirection: "row",
+                        justifyContent: "space-around",
                       }}
                     >
-                      <Image
-                        source={require("../assets/google-icon.png")}
-                        style={{ width: 36, height: 36 }}
-                        resizeMode="contain"
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: "#EFF9F5",
-                        padding: 10,
-                        borderRadius: 10,
-                      }}
-                    >
-                      <Image
-                        source={require("../assets/facebook-icon.png")}
-                        style={{ width: 36, height: 36 }}
-                        resizeMode="contain"
-                      />
-                    </TouchableOpacity>
-                  </View>
+                      <TouchableOpacity
+                        style={{
+                          backgroundColor: "#EFF9F5",
+                          padding: 10,
+                          borderRadius: 10,
+                        }}
+                      >
+                        <Image
+                          source={require("../assets/google-icon.png")}
+                          style={{ width: 36, height: 36 }}
+                          resizeMode="contain"
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={{
+                          backgroundColor: "#EFF9F5",
+                          padding: 10,
+                          borderRadius: 10,
+                        }}
+                      >
+                        <Image
+                          source={require("../assets/facebook-icon.png")}
+                          style={{ width: 36, height: 36 }}
+                          resizeMode="contain"
+                        />
+                      </TouchableOpacity>
+                    </View>
 
-                  <View
-                    style={{
-                      justifyContent: "center",
-                      flexDirection: "row",
-                      gap: 5,
-                    }}
-                  >
-                    <Text style={{ fontSize: 16, fontWeight: 500 }}>
-                      Vous n'avez pas de compte ?
-                    </Text>
-                    <TouchableOpacity // Bouton SignUp
-                      onPress={() => navigation.navigate("SignUp")}
+                    <View
                       style={{
-                        alignItems: "center",
                         justifyContent: "center",
+                        flexDirection: "row",
+                        gap: 5,
                       }}
                     >
-                      <Text
+                      <Text style={{ fontSize: 16, fontWeight: 500 }}>
+                        Vous n'avez pas de compte ?
+                      </Text>
+                      <TouchableOpacity // Bouton SignUp
+                        onPress={() => navigation.navigate("SignUp")}
                         style={{
-                          textAlign: "center",
-                          fontSize: 16,
-                          fontWeight: "700",
-                          color: "#6038E0",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                       >
-                        Créer un compte
-                      </Text>
-                    </TouchableOpacity>
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            fontSize: 16,
+                            fontWeight: "700",
+                            color: "#6038E0",
+                          }}
+                        >
+                          Créer un compte
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </SafeAreaView>
-      </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
+          </SafeAreaView>
+        </KeyboardAvoidingView>
     </LinearGradient>
+
   );
 };
 
