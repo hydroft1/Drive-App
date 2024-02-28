@@ -14,34 +14,6 @@ import { firebase } from '../config';
 import { dataArray } from '../components/TripData';
 
 
-
-
-const data = {
-  labels: ['Mai', 'Juin', 'Jui', 'Aou', 'Sep', 'Oct'],
-  datasets: [
-    {
-      data: [0, 500, 786, 1160, 1508, 1750],
-    },
-  ],
-};
-
-const chartConfig = {
-  backgroundColor: '#ffffff',
-  backgroundGradientFrom: '#ffffff',
-  backgroundGradientTo: '#ffffff',
-  decimalPlaces: 0, // optional, defaults to 2dp
-  color: () => `rgba(153, 87, 255, 1)`,
-  labelColor: () => `rgba(0, 0, 0, 1)`,
-  style: {
-    borderRadius: 16,
-  },
-  propsForDots: {
-    r: '6',
-    strokeWidth: '2',
-    
-  },
-};
-
 const convertDurationToHours = (duration) => {
   // Vérifiez si la durée est au format "0h00min"
   if (/^\d+h\d+min$/.test(duration)) {
@@ -78,9 +50,47 @@ const calculateTotalDistance = (dataArray) => {
 const totalKilometers = calculateTotalDistance(dataArray);
 
 
+const kilometersByMonth = dataArray.reduce((acc, trip) => {
+  const { mois, distance } = trip;
+  if (!acc[mois]) {
+    acc[mois] = parseFloat(distance); // Convertir la distance en nombre (suppose que distance est une chaîne de caractères)
+  } else {
+    acc[mois] += parseFloat(distance); // Ajouter la distance au total existant pour ce mois
+  }
+  return acc;
+}, {});
 
+// 2. Convertissez le résultat en un tableau d'objets
+const dataForChart = Object.keys(kilometersByMonth).map((month) => ({
+  month,
+  kilometers: kilometersByMonth[month],
+}));
 
+// 3. Utilisez les données pour mettre à jour votre graphique
+const updatedData = {
+  labels: dataForChart.map((item) => item.month),
+  datasets: [
+    {
+      data: dataForChart.map((item) => item.kilometers),
+    },
+  ],
+};
 
+const chartConfig = {
+  backgroundColor: '#ffffff',
+  backgroundGradientFrom: '#ffffff',
+  backgroundGradientTo: '#ffffff',
+  decimalPlaces: 0, // optional, defaults to 2dp
+  color: () => `rgba(153, 87, 255, 1)`,
+  labelColor: () => `rgba(0, 0, 0, 1)`,
+  style: {
+    borderRadius: 16,
+  },
+  propsForDots: {
+    r: '6',
+    strokeWidth: '2',
+  },
+};
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -126,7 +136,19 @@ const HomeScreen = () => {
   }, []);
   
 
-
+  const totals = dataArray.reduce((acc, trip) => {
+    // Ajoutez les valeurs de chaque catégorie à l'accumulateur
+    acc.bg += trip.bg || 0;
+    acc.bd += trip.bd || 0;
+    acc.cg += trip.cg || 0;
+    acc.cd += trip.cd || 0;
+    acc.rg += trip.rg || 0;
+    acc.rd += trip.rd || 0;
+    return acc;
+  }, { bg: 0, bd: 0, cg: 0, cd: 0, rg: 0, rd: 0 });
+  
+  console.log(totals);
+  
   
 
   return (
@@ -258,7 +280,7 @@ const HomeScreen = () => {
         <TouchableOpacity onPress={() => navigation.navigate('Activity')}>
           <View style={{ width: "100%", height: 220, marginTop: 20, alignItems: "center" }}>
             <LineChart
-              data={data}
+              data={updatedData}
               width={Dimensions.get("window").width - 2 * 30 }
               height={220}
               chartConfig={chartConfig}
