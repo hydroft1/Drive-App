@@ -28,56 +28,54 @@ const LoginScreen = () => {
   
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(firebase.auth(), (user) => {
-      if (user) {
-        // User is signed in.
-        setTimeout(() => {
-          navigation.replace("Main");
-        }, 400);
-      }
-    });
-
     const checkLoginStatus = async () => {
       try {
-        const token = await AsyncStorage.getItem("authToken");
-
-        if (token) {
-          setTimeout(() => {
+        const authToken = await AsyncStorage.getItem("authToken");
+  
+        if (authToken) {
+          // If authToken exists, navigate to "Main" screen
+          navigation.replace("Main");
+        } else {
+          const user = firebase.auth().currentUser;
+          if (user && user.getIdToken) {
+            // If user is signed in, navigate to "Main" screen
             navigation.replace("Main");
-          }, 400);
+          }
         }
       } catch (error) {
         console.log("error", error);
       }
     };
-
+  
     checkLoginStatus();
-
-    return () => unsubscribe();
   }, []);
 
   const handleLogin = () => {
-    
     const user = {
       email: email,
       password: password,
     };
-
+  
     firebase
       .auth()
       .signInWithEmailAndPassword(user.email, user.password)
       .then((response) => {
         console.log(response);
         const user = response.user;
-        const token = user.getIdToken();
-        AsyncStorage.setItem("authToken", JSON.stringify(token));
-        navigation.navigate("Main");
+        user.getIdToken().then((token) => {
+          AsyncStorage.setItem("authToken", token).then(() => {
+            navigation.navigate("Main");
+          });
+        });
       })
       .catch((error) => {
         Alert.alert("Login error");
         console.log("error login screen ", error);
       });
   };
+
+
+  
   return (
     <LinearGradient
       colors={["#B138E0", "#5638E0"]}
@@ -326,7 +324,7 @@ const LoginScreen = () => {
                       Vous n'avez pas de compte ?
                     </Text>
                     <TouchableOpacity // Bouton SignUp
-                      onPress={() => navigation.navigate("SignUpScreen")}
+                      onPress={() => navigation.navigate("SignUp")}
                       style={{
                         alignItems: "center",
                         justifyContent: "center",

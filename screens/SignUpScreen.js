@@ -278,7 +278,7 @@ const LoginScreen = () => {
                         Vous avez déjà un compte ? 
                     </Text>
                     <TouchableOpacity // Bouton Login
-                      onPress={() => navigation.navigate("LoginScreen")}
+                      onPress={() => navigation.navigate("Login")}
                       
                     >
                       <Text style={{ textAlign: "center", fontSize: 16, fontWeight:"700", color:"#6038E0" }}>
