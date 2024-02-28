@@ -3,12 +3,12 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  StyleSheet,
   Image,
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -17,33 +17,55 @@ import { Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config";
+import { addDoc, collection } from "firebase/firestore";
 
-const LoginScreen = () => {
+const SignUpScreen = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [prenom, setPrenom] = useState("");
 
-  registerUser = async () => {
-    if (email && password) {
+  const registerUser = async () => {
+    if (email && password && prenom) {
       try {
-        await createUserWithEmailAndPassword(firebase.auth(), email, password); // Utilisez la méthode correctement en passant firebase.auth() comme premier argument
-      } catch (err) {
-        console.log("got error: ", err);
+        const userCredential = await createUserWithEmailAndPassword(
+          firebase.auth(),
+          email,
+          password
+        );
+  
+        if (userCredential && userCredential.user) {
+          const user = userCredential.user;
+          // Mise à jour du profil de l'utilisateur
+          await firebase.auth().currentUser.updateProfile({
+            Prénom: prenom,
+          });
+  
+          // Enregistrement de l'utilisateur dans Firestore
+          await addDoc(collection(firebase.firestore(), "users"), {
+            uid: user.uid,
+            email: user.email,
+            Prénom: prenom,
+          });
+  
+          navigation.navigate("Main");
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'inscription:", error);
       }
+    } else {
+      console.error("Veuillez remplir tous les champs.");
     }
   };
 
-  loginUser = async (email, password) => {
-    try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-    } catch (error) {
-      alert(error.message);
-    }
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+  
 
   return (
+    
     <LinearGradient
       colors={["#B138E0", "#5638E0"]}
       start={{ x: 0, y: 0 }}
@@ -51,6 +73,7 @@ const LoginScreen = () => {
       style={{ flex: 1 }}
     >
       <KeyboardAvoidingView
+        
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
@@ -62,7 +85,7 @@ const LoginScreen = () => {
             justifyContent: "space-between",
           }}
         >
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <TouchableWithoutFeedback style={{flex: 1}} onPress={Keyboard.dismiss}>  
             <View
               style={{
               flex: 1,
@@ -75,6 +98,7 @@ const LoginScreen = () => {
                   style={{
                     width: "100%",
                     alignItems: "center",
+                    flex: 1,
                   }}
               >
                 <Image
@@ -94,7 +118,7 @@ const LoginScreen = () => {
                   >
                     Drive AAC
                   </Text>
-                </View>
+              </View>
 
               <View
                 style={{
@@ -178,48 +202,48 @@ const LoginScreen = () => {
                         fontSize: 16,
                       }}
                       placeholder="Nom Complet"
-                      onChangeText={(fullName) => setFullName(fullName)}
+                      onChangeText={(prenom) => setPrenom(prenom)}
                       autoCapitalize="none"
                       autoCorrect={false}
                     />
                   </View>
 
-                  <View // Password Carré
-                    style={{ marginTop: 0 }}
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 10,
+                      backgroundColor: "#EFF9F5",
+                      paddingVertical: 5,
+                      borderRadius: 8,
+                      paddingHorizontal: 15,
+                    }}
                   >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: 10,
-                        backgroundColor: "#EFF9F5",
-                        paddingVertical: 5,
-                        borderRadius: 8,
-                        paddingHorizontal: 15,
+                    <Feather name="lock" size={24} color="black" />
+                    <TextInput
+                      returnKeyType="send"
+                      ref={(input) => {
+                        passwordinput = input;
                       }}
-                    >
-                      <Feather name="eye" size={24} color="black" />
-
-                      <TextInput
-                        returnKeyType="send"
-                        ref={(input) => {
-                          passwordinput = input;
-                        }}
-                        style={{
-                          color: "gray",
-                          marginVertical: 10,
-                          width: "100%",
-                          fontSize: email ? 16 : 16,
-                        }}
-                        placeholder="Password"
-                        onChangeText={(password) => setPassword(password)}
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        onSubmitEditing={Keyboard.dismiss}
-                      />
-                    </View>
+                      style={{
+                        color: "gray",
+                        marginVertical: 10,
+                        width: "80%",
+                        fontSize: 16,
+                      }}
+                      placeholder="Password"
+                      value={password}
+                      onChangeText={(password) => setPassword(password)}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      secureTextEntry={!showPassword} // Utilisation du type "password" ou "text" en fonction de la visibilité
+                    />
+                    {/* Bouton pour basculer la visibilité du mot de passe */}
+                    <TouchableOpacity onPress={togglePasswordVisibility}>
+                      <Feather name={showPassword ? "eye" : "eye-off"} size={24} />
+                    </TouchableOpacity>
                   </View>
+
 
                   <View style={{justifyContent: "flex-start", flexDirection: "row", paddingHorizontal: 15, flexWrap: 'wrap'}}>
                     <Text style= {{ fontWeight: "300", fontSize: 11 }}>En vous inscrivant, vous acceptez nos</Text>
@@ -258,7 +282,7 @@ const LoginScreen = () => {
                     }}
                   >
                     <TouchableOpacity // Bouton Register
-                      onPress={() => registerUser(email, password, fullName)}
+                      onPress={() => registerUser(email, password, prenom)}
                     >
                       <Text
                         style={{
@@ -297,6 +321,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
-
-const styles = StyleSheet.create({});
+export default SignUpScreen;
