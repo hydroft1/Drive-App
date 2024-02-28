@@ -110,6 +110,7 @@ const LoginScreen = () => {
                   style={{
                     width: "100%",
                     alignItems: "center",
+                    flex: 1,
                   }}
                 >
                   <Image

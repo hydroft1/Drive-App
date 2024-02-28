@@ -5,11 +5,15 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import { LineChart } from 'react-native-chart-kit';
-import { useNavigation } from "@react-navigation/native";
+import { firebase } from '../config';
+
+
+
 
 const data = {
   labels: ['Mai', 'Juin', 'Jui', 'Aou', 'Sep', 'Oct'],
@@ -42,6 +46,42 @@ const chartConfig = {
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const [prenom, setPrenom] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        // Vérifier si un utilisateur est actuellement connecté
+        const currentUser = firebase.auth().currentUser;
+        if (currentUser) {
+          console.log('ID utilisateur Firebase Auth:', currentUser.uid); // Ajoutez ce log
+  
+          const userDoc = await firebase.firestore()
+            .collection('users')
+            .doc(currentUser.uid)
+            .get();
+  
+          if (userDoc.exists) {
+            const userData = userDoc.data();
+            setPrenom(userData.displayName);
+          } else {
+            console.log('Document utilisateur introuvable dans Firestore.');
+          }
+        } else {
+          console.log('Aucun utilisateur n\'est actuellement connecté.');
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données utilisateur:', error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+  
+
+
+  
+
   return (
     <SafeAreaView
       edges={["top"]}
@@ -66,10 +106,8 @@ const HomeScreen = () => {
               style={{ width: 50, height: 50 }}
               resizeMode="contain"
             />
-            <Text style={{ fontSize: 14, fontWeight: 700 }}>
-              {" "}
-              Bonjour Alexandre !
-            </Text>
+             <Text style={{ fontSize: 14, fontWeight: 700 }} >Bonjour {prenom || 'utilisateur'}!</Text>
+             
           </View>
 
           <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>

@@ -288,7 +288,7 @@ const SignUpScreen = () => {
                     }}
                   >
                     <TouchableOpacity // Bouton Register
-                      onPress={() => registerUser(email, password, prenom)}
+                      onPress={() => registerUser()}
                     >
                       <Text
                         style={{
