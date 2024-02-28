@@ -11,6 +11,7 @@ import TrackScreen from "../screens/TrackScreen";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons';
 import UserSettingsScreen from "../screens/UserSettingsScreen";
+import ActivityDetailScreen from "../screens/ActivityDetailScreen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -103,6 +104,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Activity"
           component={ActivityScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ActivityDetail"
+          component={ActivityDetailScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

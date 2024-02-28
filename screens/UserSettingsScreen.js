@@ -25,7 +25,17 @@ const UserSettingsScreen = () => {
     >
       <View style={{ flex: 1, paddingHorizontal: 15, width: "100%" }}>
         <View>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity
+            style={{
+            backgroundColor: "#EFF9F5",
+            padding: 10,
+            borderRadius: 10,
+            width: 44,
+            height: 44,
+            alignItems: "center",
+            justifyContent: "center",                  
+            }}
+            onPress={() => navigation.goBack()}>
             <Feather name="chevron-left" size={28} color="#6038E0" />
           </TouchableOpacity>
         </View>

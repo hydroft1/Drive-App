@@ -5,10 +5,53 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-
+import Info from "../components/Info";
 
 const ActivityScreen = () => {
   const navigation = useNavigation();
+
+  const dataArray = [
+    { 
+      date: "11 Août 2023 6h", 
+      distance: "28.8km", 
+      duration: "0h28min",
+      weatherIcon: "cloud-rain",
+      timeIcon: "sun",
+      start: "Impasse du champ du Bois, Mazé-Milon",
+      end: "Rue des Capucins, Angers",
+    },
+    { 
+      date: "29 Août 2023 16h", 
+      distance: "709.8km", 
+      duration: "8h56min",
+      weatherIcon: "sun",
+      timeIcon: "moon",
+      start: "Impasse du champ du Bois, Mazé-Milon",
+      end: "Rue des Capucins, Angers",
+    },
+  ];
+
+  const renderComponents = () => {
+    const components = [];
+    for (let i = 0; i < dataArray.length; i++) {
+      const item = dataArray[i];
+      components.push(
+        <Info
+          key={i}
+          date={item.date}
+          distance={item.distance}
+          duration={item.duration}
+          weatherIcon={item.weatherIcon} // Ajoutez le nom de l'icône météo
+          timeIcon={item.timeIcon} // Ajoutez le nom de l'icône d'activité
+          start={item.start}
+          end={item.end}
+        />
+      );
+    }
+    return components;
+  };
+  
+
   return (
     <GestureHandlerRootView style={{ flex: 1}}>
       <SafeAreaView 
@@ -56,7 +99,7 @@ const ActivityScreen = () => {
                   padding: 10,
                   borderRadius: 10,                  
                 }}
-                onPress={() => navigation.replace('UserSettings')}
+                onPress={() => navigation.navigate('UserSettings')}
               >
                 <Feather name="settings" size={24} color="black" />
               </TouchableOpacity>
@@ -64,158 +107,7 @@ const ActivityScreen = () => {
             </View>
             <ScrollView style={{width: "100%"}} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
               <View style={{width: "100%", gap: 20, paddingBottom: 100}}>
-                <TouchableOpacity style={{backgroundColor:"white", borderRadius: 15}}>
-                  <View style={{flexDirection: "row", padding: 10, justifyContent:"space-between"}}>
-                    <View style={{gap: 10}}>
-                      <Text style={{fontWeight: 700}}>11 Août 2023 6h</Text>
-                      <View style={{flexDirection: "row", gap:10,  justifyContent:"space-between"}}>
-                        <Text>28.8km</Text>
-                        <Text>0h28</Text>
-                      </View>
-                      <View style={{flexDirection: "row", gap:10}}>
-                        <Feather name="cloud-rain" size={24} color="black" />
-                        <Feather name="sun" size={24} color="black" />
-                      </View>
-                    </View>
-                    <View style={{gap: 5}}>
-                      <Feather name="chevron-right" size={24} color="#6038E0" />
-                      <Feather name="trash" size={24} color="red" />
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={{backgroundColor:"white", borderRadius: 15}}>
-                  <View style={{flexDirection: "row", padding: 10, justifyContent:"space-between"}}>
-                    <View style={{gap: 10}}>
-                      <Text style={{fontWeight: 700}}>11 Août 2023 6h</Text>
-                      <View style={{flexDirection: "row", gap:10,  justifyContent:"space-between"}}>
-                        <Text>28.8km</Text>
-                        <Text>0h28</Text>
-                      </View>
-                      <View style={{flexDirection: "row", gap:10}}>
-                        <Feather name="cloud-rain" size={24} color="black" />
-                        <Feather name="sun" size={24} color="black" />
-                      </View>
-                    </View>
-                    <View style={{gap: 5}}>
-                      <Feather name="chevron-right" size={24} color="#6038E0" />
-                      <Feather name="trash" size={24} color="red" />
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={{backgroundColor:"white", borderRadius: 15}}>
-                  <View style={{flexDirection: "row", padding: 10, justifyContent:"space-between"}}>
-                    <View style={{gap: 10}}>
-                      <Text style={{fontWeight: 700}}>11 Août 2023 6h</Text>
-                      <View style={{flexDirection: "row", gap:10,  justifyContent:"space-between"}}>
-                        <Text>28.8km</Text>
-                        <Text>0h28</Text>
-                      </View>
-                      <View style={{flexDirection: "row", gap:10}}>
-                        <Feather name="cloud-rain" size={24} color="black" />
-                        <Feather name="sun" size={24} color="black" />
-                      </View>
-                    </View>
-                    <View style={{gap: 5}}>
-                      <Feather name="chevron-right" size={24} color="#6038E0" />
-                      <Feather name="trash" size={24} color="red" />
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={{backgroundColor:"white", borderRadius: 15}}>
-                  <View style={{flexDirection: "row", padding: 10, justifyContent:"space-between"}}>
-                    <View style={{gap: 10}}>
-                      <Text style={{fontWeight: 700}}>11 Août 2023 6h</Text>
-                      <View style={{flexDirection: "row", gap:10,  justifyContent:"space-between"}}>
-                        <Text>28.8km</Text>
-                        <Text>0h28</Text>
-                      </View>
-                      <View style={{flexDirection: "row", gap:10}}>
-                        <Feather name="cloud-rain" size={24} color="black" />
-                        <Feather name="sun" size={24} color="black" />
-                      </View>
-                    </View>
-                    <View style={{gap: 5}}>
-                      <Feather name="chevron-right" size={24} color="#6038E0" />
-                      <Feather name="trash" size={24} color="red" />
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={{backgroundColor:"white", borderRadius: 15}}>
-                  <View style={{flexDirection: "row", padding: 10, justifyContent:"space-between"}}>
-                    <View style={{gap: 10}}>
-                      <Text style={{fontWeight: 700}}>11 Août 2023 6h</Text>
-                      <View style={{flexDirection: "row", gap:10,  justifyContent:"space-between"}}>
-                        <Text>28.8km</Text>
-                        <Text>0h28</Text>
-                      </View>
-                      <View style={{flexDirection: "row", gap:10}}>
-                        <Feather name="cloud-rain" size={24} color="black" />
-                        <Feather name="sun" size={24} color="black" />
-                      </View>
-                    </View>
-                    <View style={{gap: 5}}>
-                      <Feather name="chevron-right" size={24} color="#6038E0" />
-                      <Feather name="trash" size={24} color="red" />
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={{backgroundColor:"white", borderRadius: 15}}>
-                  <View style={{flexDirection: "row", padding: 10, justifyContent:"space-between"}}>
-                    <View style={{gap: 10}}>
-                      <Text style={{fontWeight: 700}}>11 Août 2023 6h</Text>
-                      <View style={{flexDirection: "row", gap:10,  justifyContent:"space-between"}}>
-                        <Text>28.8km</Text>
-                        <Text>0h28</Text>
-                      </View>
-                      <View style={{flexDirection: "row", gap:10}}>
-                        <Feather name="cloud-rain" size={24} color="black" />
-                        <Feather name="sun" size={24} color="black" />
-                      </View>
-                    </View>
-                    <View style={{gap: 5}}>
-                      <Feather name="chevron-right" size={24} color="#6038E0" />
-                      <Feather name="trash" size={24} color="red" />
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={{backgroundColor:"white", borderRadius: 15}}>
-                  <View style={{flexDirection: "row", padding: 10, justifyContent:"space-between"}}>
-                    <View style={{gap: 10}}>
-                      <Text style={{fontWeight: 700}}>11 Août 2023 6h</Text>
-                      <View style={{flexDirection: "row", gap:10,  justifyContent:"space-between"}}>
-                        <Text>28.8km</Text>
-                        <Text>0h28</Text>
-                      </View>
-                      <View style={{flexDirection: "row", gap:10}}>
-                        <Feather name="cloud-rain" size={24} color="black" />
-                        <Feather name="sun" size={24} color="black" />
-                      </View>
-                    </View>
-                    <View style={{gap: 5}}>
-                      <Feather name="chevron-right" size={24} color="#6038E0" />
-                      <Feather name="trash" size={24} color="red" />
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={{backgroundColor:"white", borderRadius: 15}}>
-                  <View style={{flexDirection: "row", padding: 10, justifyContent:"space-between"}}>
-                    <View style={{gap: 10}}>
-                      <Text style={{fontWeight: 700}}>11 Août 2023 6h</Text>
-                      <View style={{flexDirection: "row", gap:10,  justifyContent:"space-between"}}>
-                        <Text>28.8km</Text>
-                        <Text>0h28</Text>
-                      </View>
-                      <View style={{flexDirection: "row", gap:10}}>
-                        <Feather name="cloud-rain" size={24} color="black" />
-                        <Feather name="sun" size={24} color="black" />
-                      </View>
-                    </View>
-                    <View style={{gap: 5}}>
-                      <Feather name="chevron-right" size={24} color="#6038E0" />
-                      <Feather name="trash" size={24} color="red" />
-                    </View>
-                  </View>
-                </TouchableOpacity>
+                {renderComponents()}
               </View>
           </ScrollView>
           </View>
