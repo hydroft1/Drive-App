@@ -24,7 +24,11 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
+  const [showPassword, setShowPassword] = useState(false);
   
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -184,37 +188,41 @@ const LoginScreen = () => {
                     <View // Password Carré
                       style={{ marginTop: 0 }}
                     >
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          gap: 10,
-                          backgroundColor: "#EFF9F5",
-                          paddingVertical: 5,
-                          borderRadius: 8,
-                          paddingHorizontal: 15,
-                        }}
-                      >
-                        <Feather name="eye" size={24} color="black" />
-
-                        <TextInput
-                          returnKeyType="send"
-                          ref={(input) => {
-                            passwordInput = input;
-                          }}
-                          style={{
-                            marginVertical: 10,
-                            width: "100%",
-                            fontSize: email ? 16 : 16,
-                          }}
-                          placeholder="Password"
-                          onChangeText={(password) => setPassword(password)}
-                          autoCapitalize="none"
-                          autoCorrect={false}
-                          secureTextEntry={true}
-                          onSubmitEditing={Keyboard.dismiss}
-                        />
-                      </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 10,
+                      backgroundColor: "#EFF9F5",
+                      paddingVertical: 5,
+                      borderRadius: 8,
+                      paddingHorizontal: 15,
+                    }}
+                  >
+                    <Feather name="lock" size={24} color="black" />
+                    <TextInput
+                      returnKeyType="send"
+                      ref={(input) => {
+                        passwordinput = input;
+                      }}
+                      style={{
+                        color: "gray",
+                        marginVertical: 10,
+                        width: "80%",
+                        fontSize: 16,
+                      }}
+                      placeholder="Password"
+                      value={password}
+                      onChangeText={(password) => setPassword(password)}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      secureTextEntry={!showPassword} // Utilisation du type "password" ou "text" en fonction de la visibilité
+                    />
+                    {/* Bouton pour basculer la visibilité du mot de passe */}
+                    <TouchableOpacity onPress={togglePasswordVisibility}>
+                      <Feather name={showPassword ? "eye" : "eye-off"} size={24} />
+                    </TouchableOpacity>
+                  </View>
                     </View>
                   </View>
 
