@@ -21,10 +21,20 @@ const ActivityScreen = () => {
           date={item.date}
           distance={item.distance}
           duration={item.duration}
-          weatherIcon={item.weatherIcon} // Ajoutez le nom de l'icône météo
-          timeIcon={item.timeIcon} // Ajoutez le nom de l'icône d'activité
+          weatherIcon={item.weatherIcon} 
+          timeIcon={item.timeIcon} 
           start={item.start}
           end={item.end}
+          bg={item.bg}
+          bd={item.bd}
+          cg={item.cg}
+          cd={item.cd}
+          rg={item.rg}
+          rd={item.rd}
+          campagne={item.campagne}
+          ville={item.ville}
+          autoroute={item.autoroute}
+          voieRapide={item.voieRapide}
         />
       );
     }

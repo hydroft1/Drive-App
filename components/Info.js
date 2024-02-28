@@ -3,11 +3,11 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-const Info = ({ date, distance, duration, weatherIcon, timeIcon, start, end }) => {
+const Info = ({ date, distance, duration, weatherIcon, timeIcon, start, end,bg, bd, cg, cd, rg, rd, campagne, ville, voieRapide, autoroute }) => {
   const navigation = useNavigation();
 
   const handleNavigate = () => {
-    navigation.navigate('ActivityDetail', { date, distance, duration, weatherIcon, timeIcon, start, end });
+    navigation.navigate('ActivityDetail', { date, distance, duration, weatherIcon, timeIcon, start, end, bg, bd, cg, cd, rg, rd, campagne, ville, voieRapide, autoroute });
   };
 
   return (

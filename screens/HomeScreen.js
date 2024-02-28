@@ -147,7 +147,7 @@ const HomeScreen = () => {
     return acc;
   }, { bg: 0, bd: 0, cg: 0, cd: 0, rg: 0, rd: 0 });
   
-  console.log(totals);
+
   
   
 
@@ -309,37 +309,37 @@ const HomeScreen = () => {
             <View style={{alignItems: "center", gap:5}}>
               <Image source={require("../assets/icon/cg.png")} style={{width: 41, height: 41}} />
               <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
-                <Text style={{fontWeight:700, color: "white"}}>2</Text>
+                <Text style={{fontWeight:700, color: "white"}}>{totals.bg}</Text>
               </View>
             </View>
             <View style={{alignItems: "center", gap:5}}>
               <Image source={require("../assets/icon/cd.png")} style={{width: 41, height: 41}} />
               <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
-                <Text style={{fontWeight:700, color: "white"}}>10</Text>
+                <Text style={{fontWeight:700, color: "white"}}>{totals.bd}</Text>
               </View>
             </View>
             <View style={{alignItems: "center", gap:5}}>
               <Image source={require("../assets/icon/bg.png")} style={{width: 41, height: 41}} />
               <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
-                <Text style={{fontWeight:700, color: "white"}}>0</Text>
+                <Text style={{fontWeight:700, color: "white"}}>{totals.cg}</Text>
               </View>
             </View>
             <View style={{alignItems: "center", gap:5}}>
               <Image source={require("../assets/icon/bd.png")} style={{width: 41, height: 41}} />
               <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
-                <Text style={{fontWeight:700, color: "white"}}>11</Text>
+                <Text style={{fontWeight:700, color: "white"}}>{totals.cd}</Text>
               </View>
             </View>
             <View style={{alignItems: "center", gap:5}}>
               <Image source={require("../assets/icon/rg.png")} style={{width: 41, height: 41}} />
               <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
-                <Text style={{fontWeight:700, color: "white"}}>45</Text>
+                <Text style={{fontWeight:700, color: "white"}}>{totals.rg}</Text>
               </View>
             </View>
             <View style={{alignItems: "center", gap:5}}>
               <Image source={require("../assets/icon/rd.png")} style={{width: 41, height: 41}} />
               <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
-                <Text style={{fontWeight:700, color: "white"}}>9</Text>
+                <Text style={{fontWeight:700, color: "white"}}>{totals.rd}</Text>
               </View>
             </View>
           </View>

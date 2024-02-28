@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -15,28 +15,28 @@ import { FontAwesome5 } from '@expo/vector-icons';
 const ActivityDetailScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { date, distance, duration, weatherIcon, timeIcon, start, end } =
+  const { date, distance, duration, weatherIcon, timeIcon, start, end, bg, bd, cg, cd, rg, rd, campagne, ville, voieRapide, autoroute } =
     route.params;
 
     const data = [
         {
           key: 1,
-          value: 60,
+          value: campagne,
           svg: { fill: 'blue' },
         },
         {
           key: 2,
-          value: 13,
+          value: ville,
           svg: { fill: 'purple' },
         },
         {
           key: 3,
-          value: 27,
+          value: autoroute,
           svg: { fill: 'green' },
         },
         {
             key: 4,
-            value: 0,
+            value: voieRapide,
             svg: { fill: 'orange' },
           },
       ];
@@ -165,21 +165,21 @@ const ActivityDetailScreen = () => {
                     <View style={{flexDirection:"row", gap:16}}>
                         <View style={{flexDirection:"row", alignItems:"center", gap:5}}>
                             <Feather name="star" size={24} color="blue" />
-                            <Text style={{fontWeight:800}}>{data[0].value}%</Text>
+                            <Text style={{fontWeight:800}}>{campagne}%</Text>
                         </View>
                         <View style={{flexDirection:"row", alignItems:"center", gap:5}}>
                             <Ionicons name="flash-outline" size={24} color="purple" />
-                            <Text style={{fontWeight:800}}>{data[1].value}%</Text>
+                            <Text style={{fontWeight:800}}>{ville}%</Text>
                         </View>
                     </View>
                     <View style={{flexDirection:"row", gap:16}}>
                         <View style={{flexDirection:"row", alignItems:"center", gap:5}}>
                             <Feather name="figma" size={24} color="green" />
-                            <Text style={{fontWeight:800}}>{data[2].value}%</Text>
+                            <Text style={{fontWeight:800}}>{autoroute}%</Text>
                         </View>
                         <View style={{flexDirection:"row", alignItems:"center", gap:5}}>
                             <Feather name="trello" size={24} color="orange" />
-                            <Text style={{fontWeight:800}}>{data[3].value}%</Text>
+                            <Text style={{fontWeight:800}}>{voieRapide}%</Text>
                         </View>
                     </View>
                 </View>
@@ -200,6 +200,55 @@ const ActivityDetailScreen = () => {
                     <Text style={{fontSize:10, opacity:0.45}}>Maman</Text>
                 </View>
             </View>
+            <View
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              borderRadius: 15,
+              paddingVertical: 10,
+              gap: 5,
+              flexDirection: "row",
+              justifyContent: "center",
+              paddingBottom:15,
+            }}
+          >
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/cg.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>{bg}</Text>
+              </View>
+            </View>
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/cd.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>{bd}</Text>
+              </View>
+            </View>
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/bg.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>{cg}</Text>
+              </View>
+            </View>
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/bd.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>{cd}</Text>
+              </View>
+            </View>
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/rg.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>{rg}</Text>
+              </View>
+            </View>
+            <View style={{alignItems: "center", gap:5}}>
+              <Image source={require("../assets/icon/rd.png")} style={{width: 41, height: 41}} />
+              <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
+                <Text style={{fontWeight:700, color: "white"}}>{rd}</Text>
+              </View>
+            </View>
+          </View>
           </View>
         </View>
       </SafeAreaView>
