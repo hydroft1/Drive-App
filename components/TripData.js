@@ -7,6 +7,7 @@ export const dataArray = [
       timeIcon: "sun",
       start: "Impasse du champ du Bois, Mazé-Milon",
       end: "Rue des Capucins, Angers",
+      mois: "Juin",
     },
     { 
       date: "29 Août 2023 16h", 
@@ -16,6 +17,7 @@ export const dataArray = [
       timeIcon: "moon",
       start: "Impasse du champ du Bois, Mazé-Milon",
       end: "Rue des Capucins, Angers",
+      mois: "Juillet",
     },
   ];
   

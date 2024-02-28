@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import { LineChart } from 'react-native-chart-kit';
 import { firebase } from '../config';
+import { dataArray } from '../components/TripData';
 
 
 
@@ -41,12 +42,58 @@ const chartConfig = {
   },
 };
 
+const convertDurationToHours = (duration) => {
+  // Vérifiez si la durée est au format "0h00min"
+  if (/^\d+h\d+min$/.test(duration)) {
+    // Extrayez les heures et les minutes
+    const [, hours, minutes] = duration.match(/(\d+)h(\d+)min/);
+    // Convertissez les heures et les minutes en nombres entiers
+    const totalHours = parseInt(hours);
+    const totalMinutes = parseInt(minutes) / 60;
+    // Calculez le total des heures en arrondissant à la valeur entière la plus proche
+    let roundedTotalHours = Math.round(totalHours + totalMinutes);
+    // Si les minutes sont plus proches de 60, arrondissez à la prochaine heure
+    if (roundedTotalHours === 24) roundedTotalHours = 0; // Remettre à zéro si c'est minuit
+    return roundedTotalHours;
+  }
+  // Si la durée n'est pas au format attendu, retournez NaN
+  return NaN;
+};
+
+// Fonction pour extraire et calculer le total des kilomètres parcourus
+const calculateTotalDistance = (dataArray) => {
+  // Utilisez la méthode reduce() pour accumuler les distances de chaque trajet
+  const totalDistance = dataArray.reduce((acc, trip) => {
+    // Extrait la distance de chaque trajet et la convertit en nombre
+    const distance = parseFloat(trip.distance.replace('km', ''));
+    // Ajoute la distance du trajet actuel à l'accumulateur
+    return acc + distance;
+  }, 0);
+
+  // Retourne le total des kilomètres parcourus
+  return totalDistance;
+};
+
+// Appel de la fonction pour obtenir le total des kilomètres parcourus
+const totalKilometers = calculateTotalDistance(dataArray);
+
+
+
 
 
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [prenom, setPrenom] = useState('');
+  const totalTrips = dataArray.length;
+
+  const totalHours = dataArray.reduce((acc, trip) => {
+    // Convertissez la durée de chaque trajet en heures
+    const tripHours = convertDurationToHours(trip.duration);
+    // Ajoutez les heures de ce trajet à l'accumulateur
+    return acc + tripHours;
+  }, 0);
+  
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -157,7 +204,7 @@ const HomeScreen = () => {
                 <Feather name="map-pin" size={24} color="#6038E0" />
                 <Text style={{fontSize:13, fontWeight:700}}>Trajets</Text>
               </View>
-              <Text style={{fontSize:20, fontWeight:700}}>165</Text>
+              <Text style={{fontSize:20, fontWeight:700}}>{totalTrips}</Text>
             </View>
           </TouchableOpacity>
 
@@ -178,8 +225,8 @@ const HomeScreen = () => {
                 <Text style={{fontSize:13, fontWeight:700}}>Temps</Text>
               </View>
               <View style={{flexDirection:"row", alignItems: "flex-end"}} >
-                <Text style={{fontSize:20, fontWeight:700}}>126</Text>
-                <Text>heures</Text>
+                <Text style={{fontSize:18, fontWeight:700}}>{totalHours.toFixed(2)}</Text>
+                <Text style={{fontSize:10}}>heures</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -200,7 +247,10 @@ const HomeScreen = () => {
                 <Feather name="compass" size={24} color="#6038E0" />
                 <Text style={{fontSize:13, fontWeight:700}}>Km</Text>
               </View>
-              <Text style={{fontSize:20, fontWeight:700}}>1750</Text>
+              <View style={{flexDirection:"row", alignItems: "flex-end"}} >
+                <Text style={{fontSize:20, fontWeight:700}}>{totalKilometers.toFixed()}</Text>
+                <Text style={{fontSize:10}}>km</Text>
+              </View>
             </View>
           </TouchableOpacity>
         </View>
