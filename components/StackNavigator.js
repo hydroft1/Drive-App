@@ -10,6 +10,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TrackScreen from "../screens/TrackScreen";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons';
+import UserSettingsScreen from "../screens/UserSettingsScreen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -100,4 +101,4 @@ const StackNavigator = () => {
 
 export default StackNavigator;
 
-const styles = StyleSheet.create({});
+

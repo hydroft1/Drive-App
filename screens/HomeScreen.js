@@ -9,7 +9,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import { LineChart } from 'react-native-chart-kit';
-import BottomSheet, { BottomSheetView} from "@gorhom/bottom-sheet";
+import { useNavigation } from "@react-navigation/native";
+import UserSettingsScreen from "./UserSettingsScreen";
 
 const data = {
   labels: ['Mai', 'Juin', 'Jui', 'Aou', 'Sep', 'Oct'],
@@ -39,7 +40,9 @@ const chartConfig = {
 
 
 
+
 const HomeScreen = () => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView
       edges={["top"]}
@@ -86,7 +89,7 @@ const HomeScreen = () => {
                 padding: 10,
                 borderRadius: 10,
               }}
-              
+              onPress={() => navigation.navigate('UserSettings')}
             >
               <Feather name="settings" size={24} color="black" />
             </TouchableOpacity>
