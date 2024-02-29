@@ -1,5 +1,6 @@
 export const dataArray = [
-    { 
+  
+  { 
       date: "11 Août 2023 6h", 
       distance: "28.8km", 
       duration: "0h28min",
@@ -47,7 +48,7 @@ export const dataArray = [
         timeIcon: "sun",
         start: "Impasse du champ du Bois, Mazé-Milon",
         end: "8 rue de la passerelle, Paris",
-        mois: "Septembre",
+        mois: "Août",
         bg: 1,
         bd: 1,
         cg: 1,
