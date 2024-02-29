@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Button } from "react-native";
-import React, { useState} from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
@@ -7,80 +7,134 @@ import { useNavigation } from "@react-navigation/native";
 import { Octicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const UserDetailScreen = () => {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedVehicle, setSelectedVehicle] = useState(null); // Etat pour gérer le véhicule sélectionné
-  const [showVehicleModal, setShowVehicleModal] = useState(false); // Etat pour gérer la visibilité de la modal des véhicules
-  const [selectedCompanion, setSelectedCompanion] = useState(null); // Etat pour gérer l'accompagnant sélectionné
-  const [showCompanionModal, setShowCompanionModal] = useState(false); // Etat pour gérer la visibilité de la modal des accompagnants
-  
-  const handleDateChange = (event, selectedDate) => {
-      const currentDate = selectedDate || date;
-      setDate(currentDate);
-    };
-  
-  const handleSave = () => {
-      // Vous pouvez ajouter ici la logique pour enregistrer la date sélectionnée
-      setShowDatePicker(false);
-    };
-  
-  const handleOpenDatePicker = () => {
-      setShowDatePicker(true);
-    };
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [showVehicleModal, setShowVehicleModal] = useState(false);
+  const [selectedCompanion, setSelectedCompanion] = useState(null);
+  const [showCompanionModal, setShowCompanionModal] = useState(false);
+  const [isModified, setIsModified] = useState(false);
+  const [prenom, setPrenom] = useState('');
 
-  // Fonction pour ouvrir la modal des véhicules
-  const handleOpenVehicleModal = () => {
-      setShowVehicleModal(true);
-  };
+  useEffect(() => {
+    loadSavedData();
+  }, []);
 
-  // Fonction pour fermer la modal des véhicules
-  const handleCloseVehicleModal = () => {
-      setShowVehicleModal(false);
-  };
-
-  // Fonction pour sélectionner un véhicule
-  const handleSelectVehicle = (vehicle) => {
-      // Logique pour sélectionner le véhicule
-      setSelectedVehicle(vehicle);
-      handleCloseVehicleModal(); // Fermer la modal après la sélection
-  };
 
   // Données fictives des véhicules
-  const vehiclesData = [
-      { id: 1, name: "Peugeot 5008" },
-      { id: 2, name: "Lamborghini Aventador" },
-      { id: 3, name: "Toyota Prius" },
-      // Ajoutez d'autres véhicules selon vos besoins
-  ];
+    const vehiclesData = [
+        { id: 1, name: "Peugeot 5008" },
+        { id: 2, name: "Lamborghini Aventador" },
+        { id: 3, name: "Toyota Prius" },
+        // Ajoutez d'autres véhicules selon vos besoins
+    ];
 
-  // Fonction pour ouvrir la modal des accompagnants
-  const handleOpenCompanionModal = () => {
-      setShowCompanionModal(true);
+    const handleSelectVehicle = (vehicle) => {
+        setSelectedVehicle(vehicle);
+        setShowVehicleModal(false); // Fermer la modal après la sélection du véhicule
+    };
+    
+
+    // Données fictives des accompagnants
+    const companionsData = [
+        { id: 1, name: "John Doe" },
+        { id: 2, name: "Jane Doe" },
+        { id: 3, name: "Alice Smith" },
+        // Ajoutez d'autres accompagnants selon vos besoins
+    ];
+
+
+    const handleOpenCompanionModal = () => {
+        setShowCompanionModal(true);
+    };
+    
+    const handleCloseCompanionModal = () => {
+        setShowCompanionModal(false);
+    };
+    
+    const handleSelectCompanion = (companion) => {
+        setSelectedCompanion(companion);
+        handleCloseCompanionModal(); // Fermer la modal après la sélection
+    };
+    
+    
+
+
+    useEffect(() => {
+        const getPrenom = async () => {
+          try {
+            const storedPrenom = await AsyncStorage.getItem('prenom');
+            if (storedPrenom) {
+              setPrenom(storedPrenom);
+            }
+          } catch (error) {
+            console.log("Erreur lors de la récupération du prénom:", error);
+          }
+        };
+    
+        getPrenom();
+      }, []);
+    
+      useEffect(() => {
+        if (date !== new Date() || selectedVehicle || selectedCompanion) {
+          setIsModified(true);
+        } else {
+          setIsModified(false);
+        }
+      }, [date, selectedVehicle, selectedCompanion]);
+
+      const saveChanges = async () => {
+        try {
+          const userData = JSON.stringify({ savedDate: date, savedVehicle: selectedVehicle, savedCompanion: selectedCompanion });
+          await AsyncStorage.setItem('userData', userData);
+          await AsyncStorage.setItem('prenom', prenom); // Enregistrer le prénom
+          setIsModified(false);
+        } catch (error) {
+          console.error('Error saving data:', error);
+        }
+      };
+      
+      const loadSavedData = async () => {
+        try {
+          const savedData = await AsyncStorage.getItem('userData');
+          const storedPrenom = await AsyncStorage.getItem('prenom'); // Charger le prénom
+          if (savedData !== null) {
+            const { savedDate, savedVehicle, savedCompanion } = JSON.parse(savedData);
+            setDate(new Date(savedDate));
+            setSelectedVehicle(savedVehicle);
+            setSelectedCompanion(savedCompanion);
+          }
+          if (storedPrenom) {
+            setPrenom(storedPrenom); // Mettre à jour le prénom
+          }
+        } catch (error) {
+          console.error('Error loading saved data:', error);
+        }
+      };
+      
+
+  const handleDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
   };
 
-  // Fonction pour fermer la modal des accompagnants
-  const handleCloseCompanionModal = () => {
-      setShowCompanionModal(false);
+  const handleOpenDatePicker = () => {
+    setShowDatePicker(true);
   };
 
-  // Fonction pour sélectionner un accompagnant
-  const handleSelectCompanion = (companion) => {
-      // Logique pour sélectionner l'accompagnant
-      setSelectedCompanion(companion);
-      handleCloseCompanionModal(); // Fermer la modal après la sélection
-  };
+  const handleOpenVehicleModal = () => {
+    setShowVehicleModal(true);
+    };
 
-  // Données fictives des accompagnants
-  const companionsData = [
-      { id: 1, name: "Jean Dupont" },
-      { id: 2, name: "Marie Martin" },
-      { id: 3, name: "Pierre Durand" },
-      // Ajoutez d'autres accompagnants selon vos besoins
-  ];
+    const handleCloseVehicleModal = () => {
+        setShowVehicleModal(false);
+    };
+    
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -130,15 +184,17 @@ const UserDetailScreen = () => {
                 <View style={{flexDirection:"row", alignItems:"center", gap:15}}>
                     <Octicons name="person" size={24} color="black" />
                     <TextInput
-                            returnKeyType="send"
-                            style={{
+                        returnKeyType="send"
+                        style={{
                             width: "100%",
                             fontSize: 16,
-                            }}
-                            placeholder="Alexandre"                    
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                        />
+                        }}
+                        placeholder={prenom ? prenom : "Entrez votre prénom"}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        value={prenom} // Ajoutez cette ligne pour lier la valeur du champ de saisie à l'état prenom
+                        onChangeText={(text) => setPrenom(text)} // Ajoutez cette ligne pour mettre à jour l'état prenom lorsque l'utilisateur entre du texte
+                    />
                 </View>
             </View>
 
@@ -163,7 +219,7 @@ const UserDetailScreen = () => {
                             maximumDate={new Date()} // Limite à la date actuelle ou antérieure
                             onChange={handleDateChange}
                             />
-                            <Button title="Enregistrer" onPress={handleSave} />
+                            <Button title="Enregistrer" onPress={saveChanges} />
                             <Button title="Annuler" onPress={() => setShowDatePicker(false)} />
                         </View>
                         </View>
@@ -179,6 +235,7 @@ const UserDetailScreen = () => {
                     <TouchableOpacity onPress={handleOpenVehicleModal}>
                         <Text style={{ fontSize: 16 }}>{selectedVehicle ? selectedVehicle.name : "Sélectionner un véhicule"}</Text>
                     </TouchableOpacity>
+
                 </View>
                 {/* Modal pour afficher la liste des véhicules */}
                 <Modal
@@ -234,8 +291,27 @@ const UserDetailScreen = () => {
           </View>
         </View>
       </SafeAreaView>
+      {/* Bouton pour enregistrer les modifications */}
+      {isModified && (
+        <TouchableOpacity style={styles.saveButton} onPress={saveChanges}>
+          <Text style={styles.saveButtonText}>Enregistrer les modifications</Text>
+        </TouchableOpacity>
+      )}
     </GestureHandlerRootView>
   );
 };
+
+const styles = StyleSheet.create({
+  saveButton: {
+    backgroundColor: "#6038E0",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 50,
+  },
+  saveButtonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+});
 
 export default UserDetailScreen;
