@@ -72,7 +72,7 @@ const GoTrack = () => {
     const fetchRoute = async () => {
       if (initialPosition && location) {
         try {
-          const apiKey = 'AIzaSyBFF_ZF8omNSixAgVPw3ZcsKi6qIYIB9ow';
+          const apiKey = 'API_KEY';
           const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${initialPosition.coords.latitude},${initialPosition.coords.longitude}&destination=${location.coords.latitude},${location.coords.longitude}&key=${apiKey}`;
           const response = await fetch(url);
           const data = await response.json();
