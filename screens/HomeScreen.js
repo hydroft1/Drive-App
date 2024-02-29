@@ -211,7 +211,7 @@ const HomeScreen = () => {
           backgroundColor: "rgba(96, 56, 224, 0.18)",
         }}
       >
-        <ScrollView>
+        <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
           <View style={{ width: "100%", paddingHorizontal: 30, gap: 10 }}>
             <View // TOP
               style={{

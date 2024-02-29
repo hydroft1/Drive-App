@@ -14,6 +14,7 @@ import UserSettingsScreen from "../screens/UserSettingsScreen";
 import ActivityDetailScreen from "../screens/ActivityDetailScreen";
 import UserDetailScreen from "../screens/UserDetailScreen";
 import GoTrack from "../screens/GoTrack";
+import RapportScreen from "../screens/RapportScreen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -121,6 +122,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="GoTrack"
           component={GoTrack}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name="Rapport"
+          component={RapportScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

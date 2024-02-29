@@ -35,6 +35,11 @@ const GoTrack = () => {
         setShowPauseModal(false); // Masque la modal après avoir appuyé sur le bouton
     };
 
+    const Rapportnav = () => {
+        navigation.navigate("Rapport");
+        setShowPauseModal(false);
+    }
+
     useEffect(() => {
         const updateLocation = async () => {
             try {
@@ -199,7 +204,7 @@ const GoTrack = () => {
                     >
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
-                                <TouchableOpacity onPress={() => navigation.goBack()}>
+                                <TouchableOpacity onPress={Rapportnav}>
                                     <View style={{flexDirection:"row", alignItems:"center", gap:5}}>
                                             <Feather name="stop-circle" size={24} color="#F8427E" />
                                             <Text style={{color:"#F8427E", fontWeight:700}}>C'est fini</Text>
