@@ -97,7 +97,7 @@ const ActivityScreen = () => {
               </TouchableOpacity>
             </View>
             </View>
-            <ScrollView style={{width: "100%"}} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+            <ScrollView style={{width: "100%"}}>
               <View style={{width: "100%", gap: 20, paddingBottom: 100}}>
                 {renderComponents().reverse()}
               </View>
