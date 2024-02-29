@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, Modal, Button } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,8 +6,10 @@ import { Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from '@gorhom/bottom-sheet';
 import MapView, { PROVIDER_DEFAULT, Circle, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { useNavigation } from "@react-navigation/native";
 
 const GoTrack = () => {
+    const navigation = useNavigation();
   const [location, setLocation] = useState(null);
   const [speed, setSpeed] = useState(0);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -15,12 +17,17 @@ const GoTrack = () => {
   const [distance, setDistance] = useState(0);
   const [initialPosition, setInitialPosition] = useState(null);
   const [route, setRoute] = useState(null);
+  const [showPauseModal, setShowPauseModal] = useState(false);
 
   const formatTimer = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
+  const togglePauseModal = () => {
+    setShowPauseModal(!showPauseModal);
   };
 
   useEffect(() => {
@@ -167,11 +174,25 @@ const GoTrack = () => {
               </MapView>
             )}
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={togglePauseModal}>
             <View style={{ backgroundColor: "white", padding: 20, borderRadius: 10 }}>
               <Feather name="pause-circle" size={28} color="red" />
             </View>
           </TouchableOpacity>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={showPauseModal}
+            onRequestClose={togglePauseModal}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Button title="C'est fini" onPress={() => navigation.goBack()} />
+                <Button title="En Pause" onPress={togglePauseModal} />
+                <Button title="Oup, non !" onPress={() => {}} />
+              </View>
+            </View>
+          </Modal>
         </View>
       </SafeAreaView>
     </GestureHandlerRootView>
@@ -180,7 +201,29 @@ const GoTrack = () => {
 
 export default GoTrack;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+});
 
 // Fonction pour décoder la polyline
 const decodePolyline = (encoded) => {
