@@ -49,7 +49,7 @@ const UserSettingsScreen = () => {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "#EFF9F5",
+              backgroundColor: "white",
               borderRadius: 10,
               padding: 10,
             }}
@@ -71,7 +71,7 @@ const UserSettingsScreen = () => {
               <View // Apprenti
                 style={{
                   gap: 15,
-                  backgroundColor: "#EFF9F5",
+                  backgroundColor: "white",
                   borderRadius: 10,
                   paddingHorizontal: 15,
                   paddingBottom: 20,
@@ -97,7 +97,7 @@ const UserSettingsScreen = () => {
               <View // Connexion
                 style={{
                   gap: 15,
-                  backgroundColor: "#EFF9F5",
+                  backgroundColor: "white",
                   borderRadius: 10,
                   paddingHorizontal: 15,
                   paddingBottom: 20,
@@ -117,10 +117,9 @@ const UserSettingsScreen = () => {
                 >
                   <TouchableOpacity
                     style={{
-                      backgroundColor: "white",
+                      backgroundColor: "#EFF9F5",
                       padding: 15,
                       borderRadius: 15,
-                      borderBlockColor: "red",
                     }}
                     onPress={handleSignOut}
                   >
@@ -132,7 +131,7 @@ const UserSettingsScreen = () => {
               <View // Véchicules
                 style={{
                   gap: 15,
-                  backgroundColor: "#EFF9F5",
+                  backgroundColor: "white",
                   borderRadius: 10,
                   paddingHorizontal: 15,
                   paddingBottom: 20,
@@ -206,7 +205,7 @@ const UserSettingsScreen = () => {
               
               <View
                 style={{
-                  backgroundColor: "#EFF9F5",
+                  backgroundColor: "white",
                   borderRadius: 10,
                   paddingHorizontal: 15,
                   paddingBottom: 20,
@@ -226,7 +225,7 @@ const UserSettingsScreen = () => {
 
               <View
                 style={{
-                  backgroundColor: "#EFF9F5",
+                  backgroundColor: "white",
                   borderRadius: 10,
                   paddingHorizontal: 15,
                   paddingBottom: 20,
@@ -252,7 +251,7 @@ const UserSettingsScreen = () => {
 
               <View
                 style={{
-                  backgroundColor: "#EFF9F5",
+                  backgroundColor: "white",
                   borderRadius: 10,
                   paddingHorizontal: 15,
                   paddingBottom: 20,
