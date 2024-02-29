@@ -12,6 +12,7 @@ import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons';
 import UserSettingsScreen from "../screens/UserSettingsScreen";
 import ActivityDetailScreen from "../screens/ActivityDetailScreen";
+import UserDetailScreen from "../screens/UserDetailScreen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -109,6 +110,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="ActivityDetail"
           component={ActivityDetailScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="UserDetail"
+          component={UserDetailScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

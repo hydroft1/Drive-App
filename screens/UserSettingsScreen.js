@@ -79,7 +79,7 @@ const UserSettingsScreen = () => {
                 }}
               >
                 <Text style={{fontWeight:800}}>Apprenti</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('UserDetail')}>
                   <View style={{flexDirection:"row", gap:10, alignItems:"center"}}>
                     <Image
                       source={require("../assets/profile/2.png")}
