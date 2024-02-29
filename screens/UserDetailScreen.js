@@ -86,30 +86,33 @@ const UserDetailScreen = () => {
                 </View>
             </View>
 
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-start" }}>
-                <Feather name="calendar" size={24} color="black" />
-                <TouchableOpacity onPress={handleOpenDatePicker}>
-                    <Text style={{ fontSize: 16, marginTop: 20, marginLeft: 10, fontWeight: "600" }}>{date.toLocaleDateString()}</Text>
-                </TouchableOpacity>
-                <Modal
-                    visible={showDatePicker}
-                    transparent
-                    animationType="slide"
-                >
-                    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
-                    <View style={{ backgroundColor: "white", padding: 20, borderRadius: 10, alignItems: "center" }}>
-                        <DateTimePicker
-                        value={date}
-                        mode="date"
-                        display="spinner"
-                        maximumDate={new Date()} // Limite à la date actuelle ou antérieure
-                        onChange={handleDateChange}
-                        />
-                        <Button title="Enregistrer" onPress={handleSave} />
-                        <Button title="Annuler" onPress={() => setShowDatePicker(false)} />
-                    </View>
-                    </View>
-                </Modal>
+            <View>
+                <Text style={{opacity: 0.5}}>Date de naissance</Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Feather name="calendar" size={24} color="black" />
+                    <TouchableOpacity onPress={handleOpenDatePicker} style={{ marginLeft: 10 }}>
+                        <Text style={{ fontSize: 16, fontWeight: "600" }}>{date.toLocaleDateString()}</Text>
+                    </TouchableOpacity>
+                    <Modal
+                        visible={showDatePicker}
+                        transparent
+                        animationType="slide"
+                    >
+                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+                        <View style={{ backgroundColor: "white", padding: 20, borderRadius: 10, alignItems: "center" }}>
+                            <DateTimePicker
+                            value={date}
+                            mode="date"
+                            display="spinner"
+                            maximumDate={new Date()} // Limite à la date actuelle ou antérieure
+                            onChange={handleDateChange}
+                            />
+                            <Button title="Enregistrer" onPress={handleSave} />
+                            <Button title="Annuler" onPress={() => setShowDatePicker(false)} />
+                        </View>
+                        </View>
+                    </Modal>
+                </View>
             </View>
 
           </View>
