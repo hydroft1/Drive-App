@@ -398,38 +398,50 @@ const HomeScreen = () => {
 
         <TouchableOpacity style={{paddingTop: 30}} onPress={() => navigation.navigate('Activity')}>
           <View
-                      style={{
-                        backgroundColor: "white",
-                        width: "100%",
-                        borderRadius: 15,
-                        paddingVertical: 10,
-                        gap: 5,
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        paddingBottom:15,
-                      }}
+            style={{
+               backgroundColor: "white",
+              width: "100%",
+              borderRadius: 15,
+              paddingVertical: 10,
+              gap: 10,
+              flexDirection: "row",
+              justifyContent: "center",
+              paddingBottom:15,
+            }}
           >
-              <View style={{alignItems: "center", gap:5}}>
-                <Feather name="star" size={24} color="blue" />
-                <View style={{backgroundColor: "blue", paddingHorizontal: 16, borderRadius: 5}}>
+              <View style={{alignItems: "center", gap:15}}>
+                <View style={{alignItems:"center"}}>
+                  <Image source={require("../assets/icon/campagne.png")} style={{width: 41, height: 41}} /> 
+                  <Text>Campagne</Text>
+                </View>
+                <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
                   <Text style={{fontWeight:700, color: "white"}}>{pourcentageCampagne}%</Text>
                 </View>
               </View>
-              <View style={{alignItems: "center", gap:5}}>
-                <Ionicons name="flash-outline" size={24} color="purple" />
-                <View style={{backgroundColor: "purple", paddingHorizontal: 16, borderRadius: 5}}>
+              <View style={{alignItems: "center", gap:15}}>
+                <View style={{alignItems:"center"}}>
+                  <Image source={require("../assets/icon/ville.png")} style={{width: 41, height: 41}} /> 
+                  <Text>Ville</Text>
+                </View>
+                <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
                   <Text style={{fontWeight:700, color: "white"}}>{pourcentageVille}%</Text>
                 </View>
               </View>
-              <View style={{alignItems: "center", gap:5}}>
-                <Feather name="figma" size={24} color="green" />
-                <View style={{backgroundColor: "green", paddingHorizontal: 16, borderRadius: 5}}>
+              <View style={{alignItems: "center", gap:15}}>
+              <View style={{alignItems:"center"}}>
+                  <Image source={require("../assets/icon/autoroute.png")} style={{width: 41, height: 41}} /> 
+                  <Text>Autoroute</Text>
+                </View>
+                <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
                   <Text style={{fontWeight:700, color: "white"}}>{pourcentageAutoroute}%</Text>
                 </View>
               </View>
-              <View style={{alignItems: "center", gap:5}}>
-                <Feather name="trello" size={24} color="orange" />
-                <View style={{backgroundColor: "orange", paddingHorizontal: 16, borderRadius: 5}}>
+              <View style={{alignItems: "center", gap:15}}>
+              <View style={{alignItems:"center"}}>
+                  <Image source={require("../assets/icon/voieRapide.png")} style={{width: 41, height: 41}} /> 
+                  <Text>Voie Rapide</Text>
+                </View> 
+                <View style={{backgroundColor: "#6038E0", paddingHorizontal: 16, borderRadius: 5}}>
                   <Text style={{fontWeight:700, color: "white"}}>{pourcentageVoieRapide}%</Text>
                 </View>
               </View>

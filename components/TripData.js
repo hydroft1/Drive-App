@@ -59,6 +59,27 @@ export const dataArray = [
         ville: 0,
         voieRapide: 5,
         autoroute: 5,
+        commentaire: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit officia inventore magnam sunt! Error consequuntur reprehenderit dolore sit accusantium. Molestiae, qui! Enim cumque quam eaque temporibus ipsam dolorem minus iste."
+      },
+      { 
+        date: "19 Août 2023 14h", 
+        distance: "44.4km", 
+        duration: "1h9min",
+        weatherIcon: "sun",
+        timeIcon: "sun",
+        start: "Impasse du champ du Bois, Mazé-Milon",
+        end: "Impasse du champ du Bois, Mazé-Milon",
+        mois: "Août",
+        bg: 0,
+        bd: 0,
+        cg: 0,
+        cd: 0,
+        rg: 0,
+        rd: 0,
+        campagne: 94,
+        ville: 6,
+        voieRapide: 0,
+        autoroute: 0,
       },
   ];
   

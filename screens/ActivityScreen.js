@@ -35,6 +35,7 @@ const ActivityScreen = () => {
           ville={item.ville}
           autoroute={item.autoroute}
           voieRapide={item.voieRapide}
+          commentaire={item.commentaire}
         />
       );
     }
