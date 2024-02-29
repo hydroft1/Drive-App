@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Drive App",
-    "slug": "Drive App",
+    "name": "Drive-App",
+    "slug": "Drive-App",
     "description": "This is Drive-App",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -31,6 +31,16 @@
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "4161f2ca-2fcb-4e2d-9e8a-cbf55f68d315"
+      }
+    },
+    "owner": "hydroft",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/4161f2ca-2fcb-4e2d-9e8a-cbf55f68d315"
+    }
   }
 }
