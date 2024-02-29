@@ -12,8 +12,6 @@ import { Feather } from "@expo/vector-icons";
 import { LineChart } from 'react-native-chart-kit';
 import { firebase } from '../config';
 import { dataArray } from '../components/TripData';
-import { Ionicons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
 
 
 const convertDurationToHours = (duration) => {

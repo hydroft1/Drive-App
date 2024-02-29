@@ -13,6 +13,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import UserSettingsScreen from "../screens/UserSettingsScreen";
 import ActivityDetailScreen from "../screens/ActivityDetailScreen";
 import UserDetailScreen from "../screens/UserDetailScreen";
+import GoTrack from "../screens/GoTrack";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -115,6 +116,11 @@ const StackNavigator = () => {
         <Stack.Screen 
           name="UserDetail"
           component={UserDetailScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="GoTrack"
+          component={GoTrack}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
