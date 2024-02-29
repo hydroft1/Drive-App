@@ -2,6 +2,7 @@
   "expo": {
     "name": "Drive App",
     "slug": "Drive App",
+    "description": "This is Drive-App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
