@@ -1,4 +1,4 @@
-import {Text, View, Image, Switch } from "react-native";
+import {Text, View, Image, Switch, Linking } from "react-native";
 import React, { useState} from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
@@ -215,10 +215,10 @@ const UserSettingsScreen = () => {
                   alignItems: "center",
                 }}
               >
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => Linking.openURL("https://www.instagram.com/mqtalexandre/")}>
                 <Ionicons name="logo-instagram" size={32} color="black" />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => Linking.openURL("https://www.tiktok.com/@sucesstoryteller")}>
                 <Ionicons name="logo-tiktok" size={30} color="black" />
               </TouchableOpacity>
               </View>
