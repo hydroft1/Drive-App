@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
 import {
   GestureHandlerRootView,
   ScrollView,
+  TextInput,
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather, Fontisto, Ionicons } from "@expo/vector-icons";
@@ -107,553 +108,567 @@ const RapportScreen = () => {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ScrollView
-        style={{ flex: 1, backgroundColor: "rgba(96, 56, 224, 0.18)" }}
-      >
-        <SafeAreaView
-          style={{ flex: 1, paddingTop: 30, paddingHorizontal: 30 }}
-        >
-            <View style={{ flex: 1, alignItems: "center", gap: 20 }}>
-                <Text style={{ fontWeight: 700, fontSize: 20 }}>
-                Rapport d'évaluation
-                </Text>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+            <ScrollView
+                style={{ flex: 1, backgroundColor: "rgba(96, 56, 224, 0.18)" }}
+                showsVerticalScrollIndicator={false}
+            >
+                <SafeAreaView
+                style={{ flex: 1, paddingTop: 30, paddingHorizontal: 30, paddingBottom:100, gap:30 }}
+                >
+                    <View style={{ flex: 1, alignItems: "center", gap: 20 }}>
+                        <Text style={{ fontWeight: 700, fontSize: 20 }}>
+                        Rapport d'évaluation
+                        </Text>
 
-                <View
-                style={{ width: "100%", justifyContent: "flex-start", gap: 10 }}
-                >
-                <Text style={{ fontSize: 16, fontWeight: 700 }}>Météo:</Text>
-                <View style={{ flexDirection: "row", gap: 20 }}>
-                    <TouchableOpacity
-                    style={{
-                        padding: 10,
-                        backgroundColor:
-                        selectedWeather === "sun" ? "#F8427E" : "white",
-                        borderRadius: 100,
-                    }}
-                    onPress={() => handleWeatherSelection("sun")}
-                    >
-                    <Feather
-                        name="sun"
-                        size={24}
-                        color={selectedWeather === "sun" ? "white" : "black"}
-                    />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    style={{
-                        padding: 10,
-                        backgroundColor:
-                        selectedWeather === "cloud-rain" ? "#F8427E" : "white",
-                        borderRadius: 100,
-                    }}
-                    onPress={() => handleWeatherSelection("cloud-rain")}
-                    >
-                    <Feather
-                        name="cloud-rain"
-                        size={24}
-                        color={selectedWeather === "cloud-rain" ? "white" : "black"}
-                    />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    style={{
-                        padding: 10,
-                        backgroundColor:
-                        selectedWeather === "cloud-lightning"
-                            ? "#F8427E"
-                            : "white",
-                        borderRadius: 100,
-                    }}
-                    onPress={() => handleWeatherSelection("cloud-lightning")}
-                    >
-                    <Feather
-                        name="cloud-lightning"
-                        size={24}
-                        color={
-                        selectedWeather === "cloud-lightning" ? "white" : "black"
-                        }
-                    />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    style={{
-                        padding: 10,
-                        backgroundColor:
-                        selectedWeather === "fog" ? "#F8427E" : "white",
-                        borderRadius: 100,
-                    }}
-                    onPress={() => handleWeatherSelection("fog")}
-                    >
-                    <Fontisto
-                        name="fog"
-                        size={24}
-                        color={selectedWeather === "fog" ? "white" : "black"}
-                    />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    style={{
-                        padding: 10,
-                        backgroundColor:
-                        selectedWeather === "snowflake" ? "#F8427E" : "white",
-                        borderRadius: 100,
-                    }}
-                    onPress={() => handleWeatherSelection("snowflake")}
-                    >
-                    <Fontisto
-                        name="snowflake"
-                        size={24}
-                        color={selectedWeather === "snowflake" ? "white" : "black"}
-                    />
-                    </TouchableOpacity>
-                </View>
-                </View>
-            </View>
-                <View
-                    style={{ width: "100%", justifyContent: "flex-start", gap: 10 }}
-                >
-                    <Text style={{ fontSize: 16, fontWeight: 700 }}>Jour/Nuit:</Text>
-                    <View style={{ flexDirection: "row", gap: 20 }}>
-                    <TouchableOpacity
-                        style={{
-                        padding: 10,
-                        backgroundColor:
-                            selectedTime === "sunny" ? "#F8427E" : "white",
-                        borderRadius: 100,
-                        }}
-                        onPress={() => handleTimeSelection("sunny")}
-                    >
-                        <Ionicons
-                        name="sunny"
-                        size={24}
-                        color={selectedTime === "sunny" ? "white" : "black"}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={{
-                        padding: 10,
-                        backgroundColor:
-                            selectedTime === "moon" ? "#F8427E" : "white",
-                        borderRadius: 100,
-                        }}
-                        onPress={() => handleTimeSelection("moon")}
-                    >
-                        <Feather
-                        name="moon"
-                        size={24}
-                        color={selectedTime === "moon" ? "white" : "black"}
-                        />
-                    </TouchableOpacity>
+                        <View
+                        style={{ width: "100%", justifyContent: "flex-start", gap: 10 }}
+                        >
+                        <Text style={{ fontSize: 16, fontWeight: 700 }}>Météo:</Text>
+                        <View style={{ flexDirection: "row", gap: 20 }}>
+                            <TouchableOpacity
+                            style={{
+                                padding: 10,
+                                backgroundColor:
+                                selectedWeather === "sun" ? "#F8427E" : "white",
+                                borderRadius: 100,
+                            }}
+                            onPress={() => handleWeatherSelection("sun")}
+                            >
+                            <Feather
+                                name="sun"
+                                size={24}
+                                color={selectedWeather === "sun" ? "white" : "black"}
+                            />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                            style={{
+                                padding: 10,
+                                backgroundColor:
+                                selectedWeather === "cloud-rain" ? "#F8427E" : "white",
+                                borderRadius: 100,
+                            }}
+                            onPress={() => handleWeatherSelection("cloud-rain")}
+                            >
+                            <Feather
+                                name="cloud-rain"
+                                size={24}
+                                color={selectedWeather === "cloud-rain" ? "white" : "black"}
+                            />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                            style={{
+                                padding: 10,
+                                backgroundColor:
+                                selectedWeather === "cloud-lightning"
+                                    ? "#F8427E"
+                                    : "white",
+                                borderRadius: 100,
+                            }}
+                            onPress={() => handleWeatherSelection("cloud-lightning")}
+                            >
+                            <Feather
+                                name="cloud-lightning"
+                                size={24}
+                                color={
+                                selectedWeather === "cloud-lightning" ? "white" : "black"
+                                }
+                            />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                            style={{
+                                padding: 10,
+                                backgroundColor:
+                                selectedWeather === "fog" ? "#F8427E" : "white",
+                                borderRadius: 100,
+                            }}
+                            onPress={() => handleWeatherSelection("fog")}
+                            >
+                            <Fontisto
+                                name="fog"
+                                size={24}
+                                color={selectedWeather === "fog" ? "white" : "black"}
+                            />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                            style={{
+                                padding: 10,
+                                backgroundColor:
+                                selectedWeather === "snowflake" ? "#F8427E" : "white",
+                                borderRadius: 100,
+                            }}
+                            onPress={() => handleWeatherSelection("snowflake")}
+                            >
+                            <Fontisto
+                                name="snowflake"
+                                size={24}
+                                color={selectedWeather === "snowflake" ? "white" : "black"}
+                            />
+                            </TouchableOpacity>
+                        </View>
+                        </View>
                     </View>
-                </View>
-            
-            
-            
-                <View style={{ width: "100%", justifyContent: "flex-start", gap: 10 }}>
-                    <Text style={{ fontSize: 16, fontWeight: 700 }}>Véhicule:</Text>
-                    <View style={{ flexDirection: "row", gap: 20 }}>
-                        {vehicles.map(vehicle => (
-                            <View key={vehicle.name} style={{ alignItems: "center" }}>
-                                <TouchableOpacity
-                                    style={{
-                                        padding: 10,
-                                        backgroundColor: selectedVehicle === vehicle.name ? "#F8427E" : "white",
-                                        borderRadius: 100,
-                                        overflow: "hidden",
-                                        height: 50,
-                                        width: 50,
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                    }}
-                                    onPress={() => setSelectedVehicle(vehicle.name)}
-                                >
-                                    <Ionicons name={vehicle.icon} size={24} color={selectedVehicle === vehicle.name ? "white" : "black"} />
-                                </TouchableOpacity>
-                                <Text>{vehicle.name}</Text>
+                        <View
+                            style={{flex:1, width: "100%", justifyContent: "flex-start", gap: 10 }}
+                        >
+                            <Text style={{ fontSize: 16, fontWeight: 700 }}>Jour/Nuit:</Text>
+                            <View style={{ flexDirection: "row", gap: 20 }}>
+                            <TouchableOpacity
+                                style={{
+                                padding: 10,
+                                backgroundColor:
+                                    selectedTime === "sunny" ? "#F8427E" : "white",
+                                borderRadius: 100,
+                                }}
+                                onPress={() => handleTimeSelection("sunny")}
+                            >
+                                <Ionicons
+                                name="sunny"
+                                size={24}
+                                color={selectedTime === "sunny" ? "white" : "black"}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{
+                                padding: 10,
+                                backgroundColor:
+                                    selectedTime === "moon" ? "#F8427E" : "white",
+                                borderRadius: 100,
+                                }}
+                                onPress={() => handleTimeSelection("moon")}
+                            >
+                                <Feather
+                                name="moon"
+                                size={24}
+                                color={selectedTime === "moon" ? "white" : "black"}
+                                />
+                            </TouchableOpacity>
                             </View>
-                        ))}
-                    </View>
-                </View>
+                        </View>
+                    
+                    
+                    
+                        <View style={{ width: "100%", justifyContent: "flex-start", gap: 10 }}>
+                            <Text style={{ fontSize: 16, fontWeight: 700 }}>Véhicule:</Text>
+                            <View style={{ flexDirection: "row", gap: 20 }}>
+                                {vehicles.map(vehicle => (
+                                    <View key={vehicle.name} style={{ alignItems: "center" }}>
+                                        <TouchableOpacity
+                                            style={{
+                                                padding: 10,
+                                                backgroundColor: selectedVehicle === vehicle.name ? "#F8427E" : "white",
+                                                borderRadius: 100,
+                                                overflow: "hidden",
+                                                height: 50,
+                                                width: 50,
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                            }}
+                                            onPress={() => setSelectedVehicle(vehicle.name)}
+                                        >
+                                            <Ionicons name={vehicle.icon} size={24} color={selectedVehicle === vehicle.name ? "white" : "black"} />
+                                        </TouchableOpacity>
+                                        <Text>{vehicle.name}</Text>
+                                    </View>
+                                ))}
+                            </View>
+                        </View>
 
 
 
 
 
-            <View
-                style={{ width: "100%", justifyContent: "flex-start", gap: 10 }}
-            >
-                <Text style={{ fontSize: 16, fontWeight: 700 }}>Accompagnant:</Text>
-                <View style={{ flexDirection: "row", gap: 20 }}>
-                <View style={{ alignItems: "center" }}>
-                    <TouchableOpacity
-                    style={{
-                        padding: 10,
-                        backgroundColor: selectedPerson === "M" ? "#F8427E" : "white",
-                        borderRadius: 100,
-                        overflow: "hidden",
-                        height: 50,
-                        width: 50,
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                    onPress={() => handlePersonSelection("M")}
+                    <View
+                        style={{ width: "100%", justifyContent: "flex-start", gap: 10 }}
                     >
-                    <Text style={{ fontWeight: 900, color: selectedPerson === "M" ? "white" : "black" }}>M</Text>
-                    </TouchableOpacity>
-                    <Text>Maman</Text>
-                </View>
-                <View style={{ alignItems: "center" }}>
-                    <TouchableOpacity
-                    style={{
-                        padding: 10,
-                        backgroundColor: selectedPerson === "P" ? "#F8427E" : "white",
-                        borderRadius: 100,
-                        overflow: "hidden",
-                        height: 50,
-                        width: 50,
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                    onPress={() => handlePersonSelection("P")}
+                        <Text style={{ fontSize: 16, fontWeight: 700 }}>Accompagnant:</Text>
+                        <View style={{ flexDirection: "row", gap: 20 }}>
+                        <View style={{ alignItems: "center" }}>
+                            <TouchableOpacity
+                            style={{
+                                padding: 10,
+                                backgroundColor: selectedPerson === "M" ? "#F8427E" : "white",
+                                borderRadius: 100,
+                                overflow: "hidden",
+                                height: 50,
+                                width: 50,
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                            onPress={() => handlePersonSelection("M")}
+                            >
+                            <Text style={{ fontWeight: 900, color: selectedPerson === "M" ? "white" : "black" }}>M</Text>
+                            </TouchableOpacity>
+                            <Text>Maman</Text>
+                        </View>
+                        <View style={{ alignItems: "center" }}>
+                            <TouchableOpacity
+                            style={{
+                                padding: 10,
+                                backgroundColor: selectedPerson === "P" ? "#F8427E" : "white",
+                                borderRadius: 100,
+                                overflow: "hidden",
+                                height: 50,
+                                width: 50,
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                            onPress={() => handlePersonSelection("P")}
+                            >
+                            <Text style={{ fontWeight: 900, color: selectedPerson === "P" ? "white" : "black" }}>P</Text>
+                            </TouchableOpacity>
+                            <Text>Papa</Text>
+                        </View>
+                        <View style={{ alignItems: "center" }}>
+                            <TouchableOpacity
+                            style={{
+                                padding: 10,
+                                backgroundColor: selectedPerson === "S" ? "#F8427E" : "white",
+                                borderRadius: 100,
+                                overflow: "hidden",
+                                height: 50,
+                                width: 50,
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                            onPress={() => handlePersonSelection("S")}
+                            >
+                            <Text style={{ fontWeight: 900, color: selectedPerson === "S" ? "white" : "black" }}>S</Text>
+                            </TouchableOpacity>
+                            <Text>Soeur</Text>
+                        </View>
+                        <View style={{ alignItems: "center" }}>
+                            <TouchableOpacity
+                            style={{
+                                padding: 10,
+                                backgroundColor: selectedPerson === "F" ? "#F8427E" : "white",
+                                borderRadius: 100,
+                                overflow: "hidden",
+                                height: 50,
+                                width: 50,
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                            onPress={() => handlePersonSelection("F")}
+                            >
+                            <Text style={{ fontWeight: 900, color: selectedPerson === "F" ? "white" : "black" }}>F</Text>
+                            </TouchableOpacity>
+                            <Text>Frère</Text>
+                        </View>
+                        <View style={{ alignItems: "center" }}>
+                            <TouchableOpacity
+                            style={{
+                                padding: 10,
+                                backgroundColor: selectedPerson === "Au" ? "#F8427E" : "white",
+                                borderRadius: 100,
+                                overflow: "hidden",
+                                height: 50,
+                                width: 50,
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                            onPress={() => handlePersonSelection("Au")}
+                            >
+                            <Text style={{ fontWeight: 900, color: selectedPerson === "Au" ? "white" : "black" }}>Au</Text>
+                            </TouchableOpacity>
+                            <Text>Autres</Text>
+                        </View>
+                        </View>
+                    </View>
+                    <View
+                        style={{ width: "100%", justifyContent: "flex-start", gap: 10 }}
                     >
-                    <Text style={{ fontWeight: 900, color: selectedPerson === "P" ? "white" : "black" }}>P</Text>
-                    </TouchableOpacity>
-                    <Text>Papa</Text>
-                </View>
-                <View style={{ alignItems: "center" }}>
-                    <TouchableOpacity
-                    style={{
-                        padding: 10,
-                        backgroundColor: selectedPerson === "S" ? "#F8427E" : "white",
-                        borderRadius: 100,
-                        overflow: "hidden",
-                        height: 50,
-                        width: 50,
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                    onPress={() => handlePersonSelection("S")}
-                    >
-                    <Text style={{ fontWeight: 900, color: selectedPerson === "S" ? "white" : "black" }}>S</Text>
-                    </TouchableOpacity>
-                    <Text>Soeur</Text>
-                </View>
-                <View style={{ alignItems: "center" }}>
-                    <TouchableOpacity
-                    style={{
-                        padding: 10,
-                        backgroundColor: selectedPerson === "F" ? "#F8427E" : "white",
-                        borderRadius: 100,
-                        overflow: "hidden",
-                        height: 50,
-                        width: 50,
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                    onPress={() => handlePersonSelection("F")}
-                    >
-                    <Text style={{ fontWeight: 900, color: selectedPerson === "F" ? "white" : "black" }}>F</Text>
-                    </TouchableOpacity>
-                    <Text>Frère</Text>
-                </View>
-                <View style={{ alignItems: "center" }}>
-                    <TouchableOpacity
-                    style={{
-                        padding: 10,
-                        backgroundColor: selectedPerson === "Au" ? "#F8427E" : "white",
-                        borderRadius: 100,
-                        overflow: "hidden",
-                        height: 50,
-                        width: 50,
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                    onPress={() => handlePersonSelection("Au")}
-                    >
-                    <Text style={{ fontWeight: 900, color: selectedPerson === "Au" ? "white" : "black" }}>Au</Text>
-                    </TouchableOpacity>
-                    <Text>Autres</Text>
-                </View>
-                </View>
-            </View>
-            <View
-                style={{ width: "100%", justifyContent: "flex-start", gap: 10 }}
-            >
-                <Text style={{ fontSize: 16, fontWeight: "700" }}>
-                Stationnement:
-                </Text>
+                        <Text style={{ fontSize: 16, fontWeight: "700" }}>
+                        Stationnement:
+                        </Text>
 
-                <View style={{ gap: 15 }}>
-                <View
-                    style={{ flexDirection: "row", justifyContent: "space-around" }}
-                >
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <TouchableOpacity onPress={incrementCountMinusCG}>
-                        <Feather name="plus" size={24} color="green" />
-                    </TouchableOpacity>
-                    <View style={{ alignItems: "center", gap: 3 }}>
-                        <TouchableOpacity
-                        style={{
-                            padding: 10,
-                            backgroundColor: "white",
-                            borderRadius: 100,
-                            overflow: "hidden",
-                            height: 50,
-                            width: 50,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
+                        <View style={{ gap: 15 }}>
+                        <View
+                            style={{ flexDirection: "row", justifyContent: "space-around" }}
                         >
-                        <Image
-                            source={require("../assets/icon/cg.png")}
-                            style={{ width: 41, height: 41 }}
-                        />
-                        {countMinusCG > 0 && (
-                            <Text
-                            style={{
-                                position: "absolute",
-                                top: 5,
-                                left: 5,
-                                backgroundColor: "red",
-                                borderRadius: 10,
-                                paddingHorizontal: 5,
-                                color: "white",
-                            }}
-                            >
-                            {countMinusCG}
-                            </Text>
-                        )}
-                        </TouchableOpacity>
-                        <Text>Créneau gauche</Text>
-                    </View>
-                    <TouchableOpacity onPress={decrementCountMinusCG}>
-                        <Feather name="minus" size={24} color="red" />
-                    </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <TouchableOpacity onPress={incrementCountMinusCD}>
-                        <Feather name="plus" size={24} color="green" />
-                    </TouchableOpacity>
-                    <View style={{ alignItems: "center", gap: 3 }}>
-                        <TouchableOpacity
-                        style={{
-                            padding: 10,
-                            backgroundColor: "white",
-                            borderRadius: 100,
-                            overflow: "hidden",
-                            height: 50,
-                            width: 50,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <TouchableOpacity onPress={incrementCountMinusCG}>
+                                <Feather name="plus" size={24} color="green" />
+                            </TouchableOpacity>
+                            <View style={{ alignItems: "center", gap: 3 }}>
+                                <TouchableOpacity
+                                style={{
+                                    padding: 10,
+                                    backgroundColor: "white",
+                                    borderRadius: 100,
+                                    overflow: "hidden",
+                                    height: 50,
+                                    width: 50,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                                >
+                                <Image
+                                    source={require("../assets/icon/cg.png")}
+                                    style={{ width: 41, height: 41 }}
+                                />
+                                {countMinusCG > 0 && (
+                                    <Text
+                                    style={{
+                                        position: "absolute",
+                                        top: 5,
+                                        left: 5,
+                                        backgroundColor: "red",
+                                        borderRadius: 10,
+                                        paddingHorizontal: 5,
+                                        color: "white",
+                                    }}
+                                    >
+                                    {countMinusCG}
+                                    </Text>
+                                )}
+                                </TouchableOpacity>
+                                <Text>Créneau gauche</Text>
+                            </View>
+                            <TouchableOpacity onPress={decrementCountMinusCG}>
+                                <Feather name="minus" size={24} color="red" />
+                            </TouchableOpacity>
+                            </View>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <TouchableOpacity onPress={incrementCountMinusCD}>
+                                <Feather name="plus" size={24} color="green" />
+                            </TouchableOpacity>
+                            <View style={{ alignItems: "center", gap: 3 }}>
+                                <TouchableOpacity
+                                style={{
+                                    padding: 10,
+                                    backgroundColor: "white",
+                                    borderRadius: 100,
+                                    overflow: "hidden",
+                                    height: 50,
+                                    width: 50,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                                >
+                                <Image
+                                    source={require("../assets/icon/cd.png")}
+                                    style={{ width: 41, height: 41 }}
+                                />
+                                {countMinusCD > 0 && (
+                                    <Text
+                                    style={{
+                                        position: "absolute",
+                                        top: 5,
+                                        left: 5,
+                                        backgroundColor: "red",
+                                        borderRadius: 10,
+                                        paddingHorizontal: 5,
+                                        color: "white",
+                                    }}
+                                    >
+                                    {countMinusCD}
+                                    </Text>
+                                )}
+                                </TouchableOpacity>
+                                <Text>Créneau droit</Text>
+                            </View>
+                            <TouchableOpacity onPress={decrementCountMinusCD}>
+                                <Feather name="minus" size={24} color="red" />
+                            </TouchableOpacity>
+                            </View>
+                        </View>
+                        <View
+                            style={{ flexDirection: "row", justifyContent: "space-around" }}
                         >
-                        <Image
-                            source={require("../assets/icon/cd.png")}
-                            style={{ width: 41, height: 41 }}
-                        />
-                        {countMinusCD > 0 && (
-                            <Text
-                            style={{
-                                position: "absolute",
-                                top: 5,
-                                left: 5,
-                                backgroundColor: "red",
-                                borderRadius: 10,
-                                paddingHorizontal: 5,
-                                color: "white",
-                            }}
-                            >
-                            {countMinusCD}
-                            </Text>
-                        )}
-                        </TouchableOpacity>
-                        <Text>Créneau droit</Text>
-                    </View>
-                    <TouchableOpacity onPress={decrementCountMinusCD}>
-                        <Feather name="minus" size={24} color="red" />
-                    </TouchableOpacity>
-                    </View>
-                </View>
-                <View
-                    style={{ flexDirection: "row", justifyContent: "space-around" }}
-                >
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <TouchableOpacity onPress={incrementCountMinusBG}>
-                        <Feather name="plus" size={24} color="green" />
-                    </TouchableOpacity>
-                    <View style={{ alignItems: "center", gap: 3 }}>
-                        <TouchableOpacity
-                        style={{
-                            padding: 10,
-                            backgroundColor: "white",
-                            borderRadius: 100,
-                            overflow: "hidden",
-                            height: 50,
-                            width: 50,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <TouchableOpacity onPress={incrementCountMinusBG}>
+                                <Feather name="plus" size={24} color="green" />
+                            </TouchableOpacity>
+                            <View style={{ alignItems: "center", gap: 3 }}>
+                                <TouchableOpacity
+                                style={{
+                                    padding: 10,
+                                    backgroundColor: "white",
+                                    borderRadius: 100,
+                                    overflow: "hidden",
+                                    height: 50,
+                                    width: 50,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                                >
+                                <Image
+                                    source={require("../assets/icon/bg.png")}
+                                    style={{ width: 41, height: 41 }}
+                                />
+                                {countMinusBG > 0 && (
+                                    <Text
+                                    style={{
+                                        position: "absolute",
+                                        top: 5,
+                                        left: 5,
+                                        backgroundColor: "red",
+                                        borderRadius: 10,
+                                        paddingHorizontal: 5,
+                                        color: "white",
+                                    }}
+                                    >
+                                    {countMinusBG}
+                                    </Text>
+                                )}
+                                </TouchableOpacity>
+                                <Text>Bataille gauche</Text>
+                            </View>
+                            <TouchableOpacity onPress={decrementCountMinusBG}>
+                                <Feather name="minus" size={24} color="red" />
+                            </TouchableOpacity>
+                            </View>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <TouchableOpacity onPress={incrementCountMinusBD}>
+                                <Feather name="plus" size={24} color="green" />
+                            </TouchableOpacity>
+                            <View style={{ alignItems: "center", gap: 3 }}>
+                                <TouchableOpacity
+                                style={{
+                                    padding: 10,
+                                    backgroundColor: "white",
+                                    borderRadius: 100,
+                                    overflow: "hidden",
+                                    height: 50,
+                                    width: 50,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                                >
+                                <Image
+                                    source={require("../assets/icon/bd.png")}
+                                    style={{ width: 41, height: 41 }}
+                                />
+                                {countMinusBD > 0 && (
+                                    <Text
+                                    style={{
+                                        position: "absolute",
+                                        top: 5,
+                                        left: 5,
+                                        backgroundColor: "red",
+                                        borderRadius: 10,
+                                        paddingHorizontal: 5,
+                                        color: "white",
+                                    }}
+                                    >
+                                    {countMinusBD}
+                                    </Text>
+                                )}
+                                </TouchableOpacity>
+                                <Text>Bataille droit</Text>
+                            </View>
+                            <TouchableOpacity onPress={decrementCountMinusBD}>
+                                <Feather name="minus" size={24} color="red" />
+                            </TouchableOpacity>
+                            </View>
+                        </View>
+                        <View
+                            style={{ flexDirection: "row", justifyContent: "space-around" }}
                         >
-                        <Image
-                            source={require("../assets/icon/bg.png")}
-                            style={{ width: 41, height: 41 }}
-                        />
-                        {countMinusBG > 0 && (
-                            <Text
-                            style={{
-                                position: "absolute",
-                                top: 5,
-                                left: 5,
-                                backgroundColor: "red",
-                                borderRadius: 10,
-                                paddingHorizontal: 5,
-                                color: "white",
-                            }}
-                            >
-                            {countMinusBG}
-                            </Text>
-                        )}
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <TouchableOpacity onPress={incrementCountMinusRG}>
+                                <Feather name="plus" size={24} color="green" />
+                            </TouchableOpacity>
+                            <View style={{ alignItems: "center", gap: 3 }}>
+                                <TouchableOpacity
+                                style={{
+                                    padding: 10,
+                                    backgroundColor: "white",
+                                    borderRadius: 100,
+                                    overflow: "hidden",
+                                    height: 50,
+                                    width: 50,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                                >
+                                <Image
+                                    source={require("../assets/icon/rg.png")}
+                                    style={{ width: 41, height: 41 }}
+                                />
+                                {countMinusRG > 0 && (
+                                    <Text
+                                    style={{
+                                        position: "absolute",
+                                        top: 5,
+                                        left: 5,
+                                        backgroundColor: "red",
+                                        borderRadius: 10,
+                                        paddingHorizontal: 5,
+                                        color: "white",
+                                    }}
+                                    >
+                                    {countMinusRG}
+                                    </Text>
+                                )}
+                                </TouchableOpacity>
+                                <Text>Rangement gauche</Text>
+                            </View>
+                            <TouchableOpacity onPress={decrementCountMinusRG}>
+                                <Feather name="minus" size={24} color="red" />
+                            </TouchableOpacity>
+                            </View>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <TouchableOpacity onPress={incrementCountMinusRD}>
+                                <Feather name="plus" size={24} color="green" />
+                            </TouchableOpacity>
+                            <View style={{ alignItems: "center", gap: 3 }}>
+                                <TouchableOpacity
+                                style={{
+                                    padding: 10,
+                                    backgroundColor: "white",
+                                    borderRadius: 100,
+                                    overflow: "hidden",
+                                    height: 50,
+                                    width: 50,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                                >
+                                <Image
+                                    source={require("../assets/icon/rd.png")}
+                                    style={{ width: 41, height: 41 }}
+                                />
+                                {countMinusRD > 0 && (
+                                    <Text
+                                    style={{
+                                        position: "absolute",
+                                        top: 5,
+                                        left: 5,
+                                        backgroundColor: "red",
+                                        borderRadius: 10,
+                                        paddingHorizontal: 5,
+                                        color: "white",
+                                    }}
+                                    >
+                                    {countMinusRD}
+                                    </Text>
+                                )}
+                                </TouchableOpacity>
+                                <Text>Rangement droit</Text>
+                            </View>
+                            <TouchableOpacity onPress={decrementCountMinusRD}>
+                                <Feather name="minus" size={24} color="red" />
+                            </TouchableOpacity>
+                            </View>
+                        </View>
+                        </View>
+                    </View>
+                    <View style={{ width: "100%", justifyContent: "flex-start", gap: 10 }}>
+                    <Text style={{ fontSize: 16, fontWeight: 700 }}>Commentaire:</Text>
+                    <TextInput
+                        placeholder="Ecrivez un commentaire"
+                    ></TextInput>
+                    </View>
+                    <View style={{width:"100%", justifyContent:"center",alignItems:"center"}}>
+                        <TouchableOpacity style={{width:"80%", justifyContent:"center", alignItems:"center", backgroundColor:"white", borderRadius:20, padding:20}}>
+                            <Text style={{fontWeight:900}}>Valider</Text>
                         </TouchableOpacity>
-                        <Text>Bataille gauche</Text>
                     </View>
-                    <TouchableOpacity onPress={decrementCountMinusBG}>
-                        <Feather name="minus" size={24} color="red" />
-                    </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <TouchableOpacity onPress={incrementCountMinusBD}>
-                        <Feather name="plus" size={24} color="green" />
-                    </TouchableOpacity>
-                    <View style={{ alignItems: "center", gap: 3 }}>
-                        <TouchableOpacity
-                        style={{
-                            padding: 10,
-                            backgroundColor: "white",
-                            borderRadius: 100,
-                            overflow: "hidden",
-                            height: 50,
-                            width: 50,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                        >
-                        <Image
-                            source={require("../assets/icon/bd.png")}
-                            style={{ width: 41, height: 41 }}
-                        />
-                        {countMinusBD > 0 && (
-                            <Text
-                            style={{
-                                position: "absolute",
-                                top: 5,
-                                left: 5,
-                                backgroundColor: "red",
-                                borderRadius: 10,
-                                paddingHorizontal: 5,
-                                color: "white",
-                            }}
-                            >
-                            {countMinusBD}
-                            </Text>
-                        )}
-                        </TouchableOpacity>
-                        <Text>Bataille droit</Text>
-                    </View>
-                    <TouchableOpacity onPress={decrementCountMinusBD}>
-                        <Feather name="minus" size={24} color="red" />
-                    </TouchableOpacity>
-                    </View>
-                </View>
-                <View
-                    style={{ flexDirection: "row", justifyContent: "space-around" }}
-                >
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <TouchableOpacity onPress={incrementCountMinusRG}>
-                        <Feather name="plus" size={24} color="green" />
-                    </TouchableOpacity>
-                    <View style={{ alignItems: "center", gap: 3 }}>
-                        <TouchableOpacity
-                        style={{
-                            padding: 10,
-                            backgroundColor: "white",
-                            borderRadius: 100,
-                            overflow: "hidden",
-                            height: 50,
-                            width: 50,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                        >
-                        <Image
-                            source={require("../assets/icon/rg.png")}
-                            style={{ width: 41, height: 41 }}
-                        />
-                        {countMinusRG > 0 && (
-                            <Text
-                            style={{
-                                position: "absolute",
-                                top: 5,
-                                left: 5,
-                                backgroundColor: "red",
-                                borderRadius: 10,
-                                paddingHorizontal: 5,
-                                color: "white",
-                            }}
-                            >
-                            {countMinusRG}
-                            </Text>
-                        )}
-                        </TouchableOpacity>
-                        <Text>Rangement gauche</Text>
-                    </View>
-                    <TouchableOpacity onPress={decrementCountMinusRG}>
-                        <Feather name="minus" size={24} color="red" />
-                    </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <TouchableOpacity onPress={incrementCountMinusRD}>
-                        <Feather name="plus" size={24} color="green" />
-                    </TouchableOpacity>
-                    <View style={{ alignItems: "center", gap: 3 }}>
-                        <TouchableOpacity
-                        style={{
-                            padding: 10,
-                            backgroundColor: "white",
-                            borderRadius: 100,
-                            overflow: "hidden",
-                            height: 50,
-                            width: 50,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                        >
-                        <Image
-                            source={require("../assets/icon/rd.png")}
-                            style={{ width: 41, height: 41 }}
-                        />
-                        {countMinusRD > 0 && (
-                            <Text
-                            style={{
-                                position: "absolute",
-                                top: 5,
-                                left: 5,
-                                backgroundColor: "red",
-                                borderRadius: 10,
-                                paddingHorizontal: 5,
-                                color: "white",
-                            }}
-                            >
-                            {countMinusRD}
-                            </Text>
-                        )}
-                        </TouchableOpacity>
-                        <Text>Rangement droit</Text>
-                    </View>
-                    <TouchableOpacity onPress={decrementCountMinusRD}>
-                        <Feather name="minus" size={24} color="red" />
-                    </TouchableOpacity>
-                    </View>
-                </View>
-                </View>
-          </View>
-        </SafeAreaView>
-      </ScrollView>
+                </SafeAreaView>
+            </ScrollView>
+        </KeyboardAvoidingView>
     </GestureHandlerRootView>
   );
 };
