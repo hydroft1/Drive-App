@@ -36,7 +36,17 @@ const GoTrack = () => {
     };
 
     const Rapportnav = () => {
-        navigation.navigate("Rapport");
+        const tempsTrajet = formatTimer(timer);
+        const distanceParcourue = formatDistance(distance);
+        const positionInitiale = initialPosition.coords;
+        const dernierePosition = location.coords;
+
+        navigation.navigate("Rapport", {
+            tempsTrajet,
+            distanceParcourue,
+            positionInitiale,
+            dernierePosition
+        });
         setShowPauseModal(false);
     }
 
@@ -206,24 +216,22 @@ const GoTrack = () => {
                             <View style={styles.modalView}>
                                 <TouchableOpacity onPress={Rapportnav}>
                                     <View style={{flexDirection:"row", alignItems:"center", gap:5}}>
-                                            <Feather name="stop-circle" size={24} color="#F8427E" />
-                                            <Text style={{color:"#F8427E", fontWeight:700}}>C'est fini</Text>
-                                        </View>
+                                        <Feather name="stop-circle" size={24} color="#F8427E" />
+                                        <Text style={{color:"#F8427E", fontWeight:700}}>C'est fini</Text>
+                                    </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={togglePause}>
                                     <View style={{flexDirection:"row", alignItems:"center", gap:5}}>
                                         <Feather name={isPaused ? "play-circle" : "pause-circle"} size={24} color="green" />
                                         <Text style={{color:"green", fontWeight:700}}>{isPaused ? "Reprendre" : "En Pause"}</Text>
                                     </View>
-                                    
                                 </TouchableOpacity>
-                                 
-                                 <TouchableOpacity onPress={togglePauseModal}>
+                                <TouchableOpacity onPress={togglePauseModal}>
                                     <View style={{flexDirection:"row", alignItems:"center", gap:5}}>
-                                            <Feather name="arrow-left-circle" size={24} color="#45D7ED" />
-                                            <Text style={{color:"#45D7ED", fontWeight:700}}>Oups, non !</Text>
-                                        </View>
-                                 </TouchableOpacity>
+                                        <Feather name="arrow-left-circle" size={24} color="#45D7ED" />
+                                        <Text style={{color:"#45D7ED", fontWeight:700}}>Oups, non !</Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </Modal>

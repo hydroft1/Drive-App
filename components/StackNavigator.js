@@ -127,7 +127,7 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Rapport"
           component={RapportScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, gestureEnabled: false }}
         />
       </Stack.Navigator>
       

@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
-import {
-  GestureHandlerRootView,
-  ScrollView,
-  TextInput,
-} from "react-native-gesture-handler";
+import React, { useState, useEffect } from "react";
+import { Image, Text, View, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform, TextInput } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather, Fontisto, Ionicons } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from "@react-navigation/native";
+import { dataArray } from "../components/TripData"; // Importez le tableau dataArray depuis TripData.js
 
-const RapportScreen = () => {
+const RapportScreen = ({ route }) =>{
+  const navigation = useNavigation();
+  const { tempsTrajet, distanceParcourue, positionInitiale, dernierePosition } = route.params;
   const [countMinusCG, setCountMinusCG] = useState(0);
   const [countMinusCD, setCountMinusCD] = useState(0);
   const [countMinusBG, setCountMinusBG] = useState(0);
@@ -19,6 +20,7 @@ const RapportScreen = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [selectedPerson, setSelectedPerson] = useState(null);
+  const [comment, setComment] = useState('');
 
   const incrementCountMinusCG = () => {
     setCountMinusCG((prevCount) => prevCount + 1);
@@ -105,6 +107,63 @@ const RapportScreen = () => {
     if (vehicles.length === 1 && !selectedVehicle) {
         setSelectedVehicle(vehicles[0].name);
     }
+
+    useEffect(() => {
+        saveData();
+    }, []);
+
+    const saveData = async () => {
+        try {
+            await AsyncStorage.setItem('dataArray', JSON.stringify(dataArray));
+            console.log('Données sauvegardées avec succès');
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde des données:', error);
+        }
+    };
+
+    const saveReportData = async () => {
+        try {
+            const moisActuel = new Date().toLocaleDateString('fr-FR', { month: 'long' });
+
+            // Transformation de la position initiale en chaîne de caractères
+            const startPosition = JSON.stringify(positionInitiale);
+            // Transformation de la dernière position en chaîne de caractères
+            const endPosition = JSON.stringify(dernierePosition);
+
+            const newTrip = {
+                date: new Date().toLocaleString(),
+                distance: distanceParcourue,
+                duration: tempsTrajet,
+                weatherIcon: selectedWeather,
+                timeIcon: selectedTime,
+                start: startPosition,
+                end: endPosition,
+                mois: moisActuel,
+                bg: countMinusBG,
+                bd: countMinusBD,
+                cg: countMinusCG,
+                cd: countMinusCD,
+                rg: countMinusRG,
+                rd: countMinusRD,
+                campagne: 90,
+                ville: 0,
+                voieRapide: 5,
+                autoroute: 5,
+                commentaire: comment, // Utilisation du commentaire saisi
+            };
+
+            dataArray.push(newTrip);
+            await saveData(); // Sauvegarde les données après avoir ajouté le nouveau trajet
+
+            console.log('Nouveau trajet enregistré avec succès');
+            navigation.navigate('Main');
+        } catch (error) {
+            console.error('Erreur lors de l\'enregistrement du nouveau trajet:', error);
+        }
+    };
+    
+
+
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -217,15 +276,15 @@ const RapportScreen = () => {
                                 style={{
                                 padding: 10,
                                 backgroundColor:
-                                    selectedTime === "sunny" ? "#F8427E" : "white",
+                                    selectedTime === "sun" ? "#F8427E" : "white",
                                 borderRadius: 100,
                                 }}
-                                onPress={() => handleTimeSelection("sunny")}
+                                onPress={() => handleTimeSelection("sun")}
                             >
-                                <Ionicons
-                                name="sunny"
+                                <Feather
+                                name="sun"
                                 size={24}
-                                color={selectedTime === "sunny" ? "white" : "black"}
+                                color={selectedTime === "sun" ? "white" : "black"}
                                 />
                             </TouchableOpacity>
                             <TouchableOpacity
@@ -659,13 +718,24 @@ const RapportScreen = () => {
                     <Text style={{ fontSize: 16, fontWeight: 700 }}>Commentaire:</Text>
                     <TextInput
                         placeholder="Ecrivez un commentaire"
+                        value={comment}
+                        onChangeText={setComment}
                     ></TextInput>
+
                     </View>
-                    <View style={{width:"100%", justifyContent:"center",alignItems:"center"}}>
-                        <TouchableOpacity style={{width:"80%", justifyContent:"center", alignItems:"center", backgroundColor:"white", borderRadius:20, padding:20}}>
-                            <Text style={{fontWeight:900}}>Valider</Text>
+
+
+                    <View style={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
+                        <TouchableOpacity
+                            style={{ width: "80%", justifyContent: "center", alignItems: "center", backgroundColor: "white", borderRadius: 20, padding: 20 }}
+                            onPress={saveReportData} // Appel à la fonction saveReportData lors de l'appui sur le bouton "Valider"
+                        >
+                            <Text style={{ fontWeight: 900 }}>Valider</Text>
                         </TouchableOpacity>
                     </View>
+
+
+
                 </SafeAreaView>
             </ScrollView>
         </KeyboardAvoidingView>
